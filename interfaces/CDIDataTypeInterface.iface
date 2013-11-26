@@ -1,0 +1,9 @@
+<?php
+
+interface CDIDataTypeInterface extends CDIDataInterface {
+  
+  function getDataTypeName();
+  
+  function fireCommand(CDIDataTypeCommandInterface $command);
+  
+}

@@ -1,0 +1,9 @@
+<?php
+
+interface CDIRegistryInterface {
+  
+  function fireCommand(CDICommandInterface $command);
+  
+  function registerReceiver(CDIReceiverInterface $interface, $weight = 0);
+  
+}

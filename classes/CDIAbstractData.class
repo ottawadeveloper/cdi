@@ -1,0 +1,23 @@
+<?php
+
+abstract class CDIAbstractData implements CDIDataInterface {
+  
+  private $registry;
+  
+  public function setRegistry(CDIRegistryInterface $registry) {
+    $this->registry = $registry;
+  }
+  
+  function buildFacade($facadeType, $facadeInterface, $wrappedObject) {
+    $implements = class_implements($facadeType);
+    if (!in_array($facadeInterface, $implements)) {
+      throw new CDIException('CDI-1002', 'Unable to build facade');
+    }
+    return new $facadeType($wrappedObject);
+  }
+  
+  function fireCommand(CDICommandInterface $command) {
+    $this->registry->fireCommand($command);
+  }
+  
+}

@@ -1,0 +1,22 @@
+<?php
+
+abstract class CDIAbstractDataObjectCommand extends CDIAbstractTypedCommand
+    implements CDIDataObjectCommandInterface {
+  
+  private $dataObject = NULL;
+  
+  public function setDataObject(CDIDataObjectInterface $dataObject) {
+    $this->dataObject = $dataObject;
+  }
+  
+  public function getDataType() {
+    return $this->dataObject->getDataType();
+  }
+  
+  public function getDataObject() {
+    return $this->dataObject;
+  }
+  
+  
+  
+}

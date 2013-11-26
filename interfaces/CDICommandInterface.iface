@@ -1,0 +1,10 @@
+<?php
+
+interface CDICommandInterface {
+  
+  function validReceiver(CDIReceiverInterface $receiver);
+  function executeAction(CDIReceiverInterface $receiver);
+  
+  function toString();
+  
+}

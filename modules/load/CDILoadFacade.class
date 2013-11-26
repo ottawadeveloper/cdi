@@ -1,0 +1,11 @@
+<?php
+
+class CDILoadFacade extends CDIAbstractDataTypeFacade {
+  
+  public function load($id, $subtype = NULL) {
+    $command = new CDILoadCommand($id, $subtype);
+    $this->fireCommand($command);
+    return $command->getObject();
+  }
+  
+}

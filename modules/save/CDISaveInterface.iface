@@ -1,0 +1,7 @@
+<?php
+
+interface CDISaveInterface extends CDITypedReceiverInterface {
+  
+  function save(CDIDataObjectInterface $dataObject);
+  
+}

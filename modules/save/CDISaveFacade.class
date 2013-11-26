@@ -1,0 +1,11 @@
+<?php
+
+class CDISaveFacade extends CDIAbstractDataObjectFacade {
+  
+  public function save() {
+    $command = new CDISaveCommand();
+    $this->fireCommand($command);
+    return $command->getResults();
+  }
+  
+}

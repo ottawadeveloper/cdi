@@ -1,0 +1,16 @@
+<?php
+
+abstract class CDIAbstractDataTypeCommand extends CDIAbstractTypedCommand 
+    implements CDIDataTypeCommandInterface {
+
+  private $dataType = NULL;
+  
+  public function setDataType(CDIDataTypeInterface $dataType) {
+    $this->dataType = $dataType;
+  }
+  
+  public function getDataType() {
+    return $this->dataType;
+  }
+  
+}

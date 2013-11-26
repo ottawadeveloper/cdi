@@ -1,0 +1,24 @@
+<?php
+
+class CDIDataType implements CDIDataTypeInterface {
+  
+  private $typeName;
+  
+  public function __construct($typeName) {
+    $this->typeName = $typeName;
+  }
+  
+  public function getDataTypeName() {
+    return $this->typeName;
+  }
+  
+  public function facade($facadeType) {
+    return parent::buildFacade($facadeType, 'CDIDataTypeFacadeInterface', $this);
+  }
+  
+  public function fireCommand(CDIDataTypeCommandInterface $command) {
+    $command->setDataType($this);
+    parent::fireCommand($command);
+  }
+  
+}

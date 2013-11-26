@@ -1,0 +1,46 @@
+<?php
+
+class CDIRegistry implements CDIRegistryInterface {
+  
+  private static $registry = NULL;
+  
+  public static function getRegistry($class = 'CDIRegistry') {
+    if (empty(self::$registry)) {
+      self::$registry = new $class();
+    }
+    return self::$registry;
+  }
+  
+  public static function compareReceiverEntries($delegate1, $delegate2) {
+    return $delegate1['weight'] - $delegate2['weight'];
+  }
+  
+  private $receivers = array();
+  private $sorted = TRUE;
+  
+  public function registerReceiver(CDIReceiverInterface $receiver, $weight = 0) {
+    $this->receivers[get_class($receiver)] = array(
+      'class' => $receiver,
+      'weight' => $weight,
+    );
+    $this->sorted = FALSE;
+  }
+  
+  public function fireCommand(CDICommandInterface $command) {
+    if (!$this->sorted) {
+      uasort($this->receivers, array('CDIRegistry', 'compareReceiverEntries'));
+      array_reverse($this->receivers);
+      $this->sorted = TRUE;
+    }
+    foreach ($this->receivers as $receiver) {
+      if ($command->validReceiver($receiver['class'])) {
+        $command->executeAction($receiver['class']);
+        return;
+      }
+    }
+    throw new CDIException('CDI-1000', 'Receiver not found for command !command', array(
+      '!command' => $command->toString(),
+    ));
+  }
+  
+}

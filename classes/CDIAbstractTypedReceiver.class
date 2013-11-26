@@ -1,0 +1,18 @@
+<?php
+
+abstract class CDIAbstractTypedReceiver implements CDITypedReceiverInterface {
+  
+  private $supportedTypes = array();
+  
+  public function __construct($supportedTypes) {
+    $this->supportedTypes = $supportedTypes;
+    if (!is_array($this->supportedTypes)) {
+      $this->supportedTypes = array($this->supportedTypes);
+    }
+  }
+  
+  public function supportedTypes() {
+    return $this->supportedTypes;
+  }
+  
+}

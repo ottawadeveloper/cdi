@@ -1,0 +1,26 @@
+<?php
+
+abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
+  
+  private $validInterfaces = array();
+  
+  public function __construct($validInterfaces) {
+    if (is_array($validInterfaces)) {
+      $this->validInterfaces = $validInterfaces;
+    }
+    else {
+      $this->validInterfaces = array($validInterfaces);
+    }
+  }
+  
+  public function validReceiver(CDIReceiverInterface $receiver) {
+    if (!$receiver instanceof CDITypedRecieverInterface) {
+      return FALSE;
+    }
+    $supportedTypes = $receiver->supportedTypes();
+    if (!is_array($supportedTypes)) {
+      $supportedTypes = array($supportedTypes);
+    }
+    return in_array($this->getDataType(), $supportedTypes);
+  }
+}

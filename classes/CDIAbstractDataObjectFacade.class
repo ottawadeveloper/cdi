@@ -1,0 +1,27 @@
+<?php
+
+abstract class CDIAbstractDataObjectFacade extends CDIAbstractData implements CDIDataObjectFacadeInterface {
+  
+  private $object = NULL;
+  
+  public function __construct(CDIDataObjectInterface $dataObject) {
+    $this->object = $dataObject;
+  }
+  
+  public function getDataType() {
+    return $this->object->getDataType();
+  }
+  
+  public function facade($facadeType) {
+    return parent::buildFacade($facadeType, 'CDIDataObjectFacadeInterface', $this);
+  }
+  
+  public function strip() {
+    return $this->object;
+  }
+  
+  public function fireCommand(CDITypedCommandInterface $command) {
+    $this->object->fireCommand($command);
+  }
+  
+}

@@ -1,0 +1,23 @@
+<?php
+
+class CDISaveCommand extends CDIAbstractDataObjectCommand {
+  
+  private $results = NULL;
+  
+  public function __construct() {
+    parent::__construct(array('CDISaveInterface'));
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->results = $receiver->saveObject($this->getDataObject());
+  }
+  
+  public function toString() {
+    return 'Save command';
+  }
+  
+  public function getResults() {
+    return $this->results;
+  }
+  
+}
