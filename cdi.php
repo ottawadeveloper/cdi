@@ -30,6 +30,8 @@ require "interfaces/CDICommandDefinitionInterface.iface";
 
 require "classes/CDI.class";
 
+require "classes/CDIException.class";
+
 require "classes/CDIAbstractData.class";
 
 require "classes/CDIAbstractTypedCommand.class";

@@ -9,16 +9,23 @@ abstract class CDIAbstractData implements CDIDataInterface {
         $facadeType = $actualType;
       }
     }
-    $implements = class_implements($facadeType);
-    if (!is_array($facadeInterface)) {
-      $facadeInterface = array($facadeInterface);
-    }
-    foreach ($facadeInterface as $iface) {
-      if (in_array($iface, $implements)) {
-        return new $facadeType($wrappedObject);
+    if (class_exists($facadeType)) {
+      $implements = class_implements($facadeType);
+      if (!is_array($facadeInterface)) {
+        $facadeInterface = array($facadeInterface);
       }
+      foreach ($facadeInterface as $iface) {
+        if (in_array($iface, $implements)) {
+          return new $facadeType($wrappedObject);
+        }
+      }
+      throw new CDIException('CDI-1005', 'Unable to build facade for type, does not implement correct interface [!facade]', array(
+        '!facade' => $facadeType,
+      ));
     }
-    throw new CDIException('CDI-1002', 'Unable to build facade');
+    throw new CDIException('CDI-1002', 'Unable to build facade for type, class does not exist [!facade]', array(
+      '!facade' => $facadeType,
+    ));
   }
   
   function fireGenericCommand(CDICommandInterface $command) {

@@ -1,6 +1,6 @@
 <?php
 
-class CDIIDFacade extends CDIAbstractDataTypeFacade {
+class CDIIDFacade extends CDIAbstractDataObjectFacade {
   
   public function id() {
     $command = new CDIIDCommand();

@@ -14,7 +14,8 @@ abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
   }
   
   public function validReceiver(CDIReceiverInterface $receiver) {
-    if (!$receiver instanceof CDITypedRecieverInterface) {
+    $implements = class_implements($receiver);
+    if (!in_array('CDITypedReceiverInterface', $implements)) {
       return FALSE;
     }
     $supportedTypes = $receiver->supportedTypes();

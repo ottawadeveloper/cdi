@@ -1,0 +1,29 @@
+<?php
+
+class CDIException extends Exception {
+  
+  private $unprocessedMessage;
+  private $variables = array();
+  private $ourCode = '';
+  
+  public function __construct($code, $message, array $variables = array(), Exception $previous = NULL) {
+    $this->unprocessedMessage = $message;
+    $this->variables = $variables;
+    $this->ourCode = $code;
+    if (empty($previous)) {
+      parent::__construct($this->assembleMessage(), 1);
+    }
+    else {
+      parent::__construct($this->assembleMessage(), 1, $previous);
+    }
+  }
+  
+  public function assembleMessage() {
+    $m = $this->unprocessedMessage;
+    foreach ($this->variables as $k => $t) {
+      $m = str_replace($k, $t, $m);
+    }
+    return '[' . $this->ourCode . '] ' . $m;
+  }
+  
+}

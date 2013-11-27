@@ -1,6 +1,6 @@
 <?php
 
-class CDIDataType implements CDIDataTypeInterface {
+class CDIDataType extends CDIAbstractData implements CDIDataTypeInterface {
   
   private $typeName;
   

@@ -110,8 +110,8 @@ abstract class CDI {
   }
   
   public static function registerDefaultModule($module_name) {
-    if (!empty($self::$defaultModules[$module_name])) {
-      self::getCommandRegistry()->registercommand($self::$defaultModules[$module_name]);
+    if (!empty(self::$defaultModules[$module_name])) {
+      self::getCommandRegistry()->registercommand(self::$defaultModules[$module_name]);
       return TRUE;
     }
     return FALSE;
