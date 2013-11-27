@@ -2,6 +2,6 @@
 
 interface CDILoadInterface extends CDITypedReceiverInterface {
   
-  function loadObject($identifier, $context = NULL);
+  function load($identifier, $context = NULL);
   
 }

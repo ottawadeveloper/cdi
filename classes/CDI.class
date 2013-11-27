@@ -1,0 +1,119 @@
+<?php
+
+abstract class CDI {
+  
+  private static $registry = NULL;
+  
+  private static $dataTypeRegistry = NULL;
+  
+  private static $commandRegistry = NULL;
+  
+  private static $defaultModules = array();
+  
+  private static $registryClass = 'CDIRegistry';
+  private static $dataTypeRegistryClass = 'CDIRegistry';
+  private static $commandRegistryClass = 'CDIRegistry';
+  
+  public static function addDefaultCommandModule($module_name, CDICommandDefinitionInterface $def) {
+    self::$defaultModules[$module_name] = $def;
+  }
+  
+  public static function setRegistryClass($class) {
+    if (!empty(self::$registry)) {
+      throw new CDIException('CDI-1004', 'The registry has already been built');
+    }
+    if (is_object($class)) {
+      $reflect = new ReflectionClass(get_class($class));
+      if ($reflect->implementsInterface('CDIRegistryInterface')) {
+        self::$registryClass = get_class($class);
+        self::$registry = $class;
+      }
+    }
+    else {
+      $reflect = new ReflectionClass($class);
+      if ($reflect->implementsInterface('CDIRegistryInterface')) {
+        self::$registryClass = $class;
+      }
+    }
+  }
+  
+  public static function setDataTypeRegistryClass($class) {
+    if (!empty(self::$dataTypeRegistry)) {
+      throw new CDIException('CDI-1005', 'The data type registry has already been built');
+    }
+    if (is_object($class)) {
+      $reflect = new ReflectionClass(get_class($class));
+      if ($reflect->implementsInterface('CDIDataTypeRegistryInterface')) {
+        self::$dataTypeRegistryClass = get_class($class);
+        self::$dataTypeRegistry = $class;
+      }
+    }
+    else {
+      $reflect = new ReflectionClass($class);
+      if ($reflect->implementsInterface('CDIDataTypeRegistryInterface')) {
+        self::$dataTypeRegistryClass = $class;
+      }
+    }
+  }
+  
+  public static function setCommandRegistryClass($class) {
+    if (!empty(self::$commandRegistry)) {
+      throw new CDIException('CDI-1005', 'The command registry has already been built');
+    }
+    if (is_object($class)) {
+      $reflect = new ReflectionClass(get_class($class));
+      if ($reflect->implementsInterface('CDICommandRegistryInterface')) {
+        self::$commandRegistryClass = get_class($class);
+        self::$commandRegistry = $class;
+      }
+    }
+    else {
+      $reflect = new ReflectionClass($class);
+      if ($reflect->implementsInterface('CDICommandRegistryInterface')) {
+        self::$commandRegistryClass = $class;
+      }
+    }
+  }
+  
+  public static function getRegistry() {
+    if (empty(self::$registry)) {
+      $class = self::$registryClass;
+      self::$registry = new $class();
+    }
+    return self::$registry;
+  }
+  
+  public static function getDataTypeRegistry() {
+    if (empty(self::$dataTypeRegistry)) {
+      $class = self::$dataTypeRegistryClass;
+      self::$dataTypeRegistry = new $class();
+    }
+    return self::$dataTypeRegistry;
+  }
+  
+  public static function getCommandRegistry() {
+    if (empty(self::$commandRegistry)) {
+      $class = self::$commandRegistryClass;
+      self::$commandRegistry = new $class();
+    }
+    return self::$commandRegistry;
+  }
+  
+  public static function getDefaultModules() {
+    return self::$defaultModules;
+  }
+  
+  public static function registerAllDefaults() {
+    foreach (self::getDefaultModules() as $def) {
+      self::getCommandRegistry()->registerCommand($def);
+    }
+  }
+  
+  public static function registerDefaultModule($module_name) {
+    if (!empty($self::$defaultModules[$module_name])) {
+      self::getCommandRegistry()->registercommand($self::$defaultModules[$module_name]);
+      return TRUE;
+    }
+    return FALSE;
+  }
+}

@@ -2,22 +2,27 @@
 
 abstract class CDIAbstractData implements CDIDataInterface {
   
-  private $registry;
-  
-  public function setRegistry(CDIRegistryInterface $registry) {
-    $this->registry = $registry;
-  }
-  
-  function buildFacade($facadeType, $facadeInterface, $wrappedObject) {
-    $implements = class_implements($facadeType);
-    if (!in_array($facadeInterface, $implements)) {
-      throw new CDIException('CDI-1002', 'Unable to build facade');
+  function buildFacade($facadeType, $facadeInterface, $wrappedObject, $useShortcut = TRUE) {
+    if ($useShortcut) {
+      $actualType = CDI::getCommandRegistry()->findFacadeFromShortcut($facadeType);
+      if (!empty($actualType)) {
+        $facadeType = $actualType;
+      }
     }
-    return new $facadeType($wrappedObject);
+    $implements = class_implements($facadeType);
+    if (!is_array($facadeInterface)) {
+      $facadeInterface = array($facadeInterface);
+    }
+    foreach ($facadeInterface as $iface) {
+      if (in_array($iface, $implements)) {
+        return new $facadeType($wrappedObject);
+      }
+    }
+    throw new CDIException('CDI-1002', 'Unable to build facade');
   }
   
-  function fireCommand(CDICommandInterface $command) {
-    $this->registry->fireCommand($command);
+  function fireGenericCommand(CDICommandInterface $command) {
+    CDI::getRegistry()->fireCommand($command);
   }
   
 }

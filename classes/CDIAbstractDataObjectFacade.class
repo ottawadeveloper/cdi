@@ -13,7 +13,18 @@ abstract class CDIAbstractDataObjectFacade extends CDIAbstractData implements CD
   }
   
   public function facade($facadeType) {
-    return parent::buildFacade($facadeType, 'CDIDataObjectFacadeInterface', $this);
+    return parent::buildFacade($facadeType, array(
+      'CDIDataObjectFacadeInterface',
+      'CDIDataTypeFacadeInterface',
+    ), $this);
+  }
+  
+  public function getRawValue($key) {
+    return $this->object->getRawValue($key);
+  }
+  
+  public function setRawValue($key, $value) {
+    $this->object->setRawValue($key, $value);
   }
   
   public function strip() {
@@ -22,6 +33,10 @@ abstract class CDIAbstractDataObjectFacade extends CDIAbstractData implements CD
   
   public function fireCommand(CDITypedCommandInterface $command) {
     $this->object->fireCommand($command);
+  }
+  
+  public function checkSupport() {
+    return CDI::getCommandRegistry()->checkCommandSupportForFacade($this, $this->object);
   }
   
 }

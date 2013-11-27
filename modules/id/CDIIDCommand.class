@@ -1,0 +1,23 @@
+<?php
+
+class CDIIDCommand extends CDIAbstractDataObjectCommand {
+  
+  private $id;
+  
+  public function __construct() {
+    parent::__construct(array('CDIIDInterface'));
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->id = $receiver->id($this->getDataObject());
+  }
+  
+  public function getID() {
+    return $this->id;
+  }
+  
+  public function toString() {
+    return 'ID command';
+  }
+  
+}

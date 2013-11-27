@@ -1,0 +1,63 @@
+<?php
+
+abstract class CDIAbstractCommandDefinition implements CDICommandDefinitionInterface {
+  
+  private $facadeClassName;
+  private $commandClassName;
+  private $commandLabel;
+  private $dataClasses;
+  private $receiverClasses;
+  private $shortcut;
+  
+  public function __construct($label, $shortcut, $commandClass, $facadeClass, array $dataClasses = array(), array $receiverClasses = array()) {
+    $this->commandLabel = $label;
+    $this->shortcut = $shortcut;
+    $this->commandClassName = $commandClass;
+    $this->facadeClassName = $facadeClass;
+    $this->dataClasses = $dataClasses;
+    $this->receiverClasses = $receiverClasses;
+  }
+  
+  public function getShortcut() {
+    return $this->shortcut;
+  }
+  
+  public function getFacadeClass() {
+    return $this->facadeClassName;
+  }
+  
+  public function getCommandClass() {
+    return $this->commandClassName;
+  }
+  
+  public function getCommandLabel() {
+    return $this->commandLabel;
+  }
+  
+  public function validateReceiver(CDIReceiverInterface $receiver, CDIDataInterface $data) {
+    $reflect = new ReflectionClass(get_class($receiver));
+    foreach ($this->receiverClasses as $receiverClass) {
+      if ($reflect->isSubclassOf($receiverClass)) {
+        return TRUE;
+      }
+      if ($reflect->implementsInterface($receiverClass)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+  
+  public function validateData(CDIDataInterface $data) {
+    $reflect = new ReflectionClass(get_class($data));
+    foreach ($this->dataClasses as $dataClass) {
+      if ($reflect->isSubclassOf($dataClass)) {
+        return TRUE;
+      }
+      if ($reflect->implementsInterface($dataClass)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+  
+}

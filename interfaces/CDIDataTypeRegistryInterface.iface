@@ -1,0 +1,11 @@
+<?php
+
+interface CDIDataTypeRegistryInterface {
+  
+  function registerDataType(CDIDataTypeInterface $dataType);
+  
+  function loadDataType($key);
+  
+  function listDataTypes();
+  
+}

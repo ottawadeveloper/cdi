@@ -21,6 +21,6 @@ abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
     if (!is_array($supportedTypes)) {
       $supportedTypes = array($supportedTypes);
     }
-    return in_array($this->getDataType(), $supportedTypes);
+    return in_array($this->getDataType()->getDataTypeName(), $supportedTypes);
   }
 }

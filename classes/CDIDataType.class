@@ -18,7 +18,19 @@ class CDIDataType implements CDIDataTypeInterface {
   
   public function fireCommand(CDIDataTypeCommandInterface $command) {
     $command->setDataType($this);
-    parent::fireCommand($command);
+    parent::fireGenericCommand($command);
+  }
+  
+  public function checkObjectSupport($facadeType) {
+    // @todo: do we want a stub object creation?
+    $do = new CDIDataObject($this);
+    try {
+      $facade = $do->facade($facadeType);
+      return $facade->checkSupport();
+    } catch (CDIException $e) {
+      return FALSE;
+    }
+    return FALSE;
   }
   
 }

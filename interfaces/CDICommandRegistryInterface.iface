@@ -1,0 +1,13 @@
+<?php
+
+interface CDICommandRegistryInterface {
+  
+  function registerCommand(CDICommandDefinitionInterface $command);
+  
+  function checkCommandSupportForFacade(CDIFacadeInterface $facade, CDIDataInterface $data);
+  
+  function checkCommandSupport(CDICommandDefinitionInterface $command, CDIDataInterface $data);
+  
+  function findFacadeFromShortcut($facadeType);
+  
+}

@@ -1,0 +1,12 @@
+<?php
+
+interface CDICommandDefinitionInterface {
+  
+  function getShortcut();
+  function getCommandLabel();
+  function getFacadeClass();
+  function getCommandClass();
+  function validateData(CDIDataInterface $data);
+  function validateReceiver(CDIReceiverInterface $receiver, CDIDataInterface $data);
+  
+}

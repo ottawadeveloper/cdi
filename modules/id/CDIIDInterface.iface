@@ -1,0 +1,7 @@
+<?php
+
+interface CDIIDInterface extends CDITypedReceiverInterface {
+  
+  function id(CDIDataObjectInterface $object);
+  
+}

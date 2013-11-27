@@ -24,4 +24,8 @@ abstract class CDIAbstractDataTypeFacade extends CDIAbstractData implements CDID
     $this->object->fireCommand($command);
   }
   
+  public function checkSupport() {
+    return CDI::getCommandRegistry()->checkCommandSupportForFacade($this, $this->object);
+  }
+  
 }

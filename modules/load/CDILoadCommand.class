@@ -13,7 +13,7 @@ class CDILoadCommand extends CDIAbstractDataTypeCommand {
   }
   
   public function executeAction(CDIReceiverInterface $receiver) {
-    $this->object = $receiver->loadObject($this->id, $this->subtype);
+    $this->object = $receiver->load($this->id, $this->subtype);
   }
   
   public function getObject() {

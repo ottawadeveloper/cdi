@@ -6,4 +6,7 @@ interface CDIDataObjectInterface extends CDIDataInterface {
   
   function fireCommand(CDITypedCommandInterface $command);
   
+  function getRawValue($key);
+  function setRawValue($key, $value);
+  
 }

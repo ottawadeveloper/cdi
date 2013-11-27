@@ -1,0 +1,11 @@
+<?php
+
+class CDIIDFacade extends CDIAbstractDataTypeFacade {
+  
+  public function id() {
+    $command = new CDIIDCommand();
+    $this->fireCommand($command);
+    return $command->getID();
+  }
+  
+}

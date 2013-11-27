@@ -1,0 +1,31 @@
+<?php
+
+class CDIDataObjectCommandDefinition extends CDIAbstractCommandDefinition {
+  
+  public function __construct($label, $commandClass, $facadeClass, $interface, $shortcut) {
+    parent::__construct($label, $shortcut, $commandClass, $facadeClass, array(
+      'CDIDataObjectInterface'
+    ), array($interface));
+  }
+  
+  public function validateReceiver(CDIReceiverInterface $receiver, CDIDataInterface $data) {
+    if (!parent::validateReceiver($receiver, $data)) {
+      return FALSE;
+    }
+    if ($receiver instanceof CDIAbstractTypedReceiver) {
+      $supportedTypes = $receiver->supportedTypes();
+      $type = NULL;
+      if ($data instanceof CDIDataObjectInterface) {
+        $type = $data->getDataType()->getDataTypeName();
+      }
+      else {
+        return FALSE;
+      }
+      if (in_array($type, $supportedTypes)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+  
+}

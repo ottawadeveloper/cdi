@@ -4,6 +4,8 @@ class CDIDataObject extends CDIAbstractData implements CDIDataObjectInterface {
   
   private $dataType = NULL;
   
+  private $rawData = array();
+  
   public function facade($facadeType) {
     return parent::buildFacade($facadeType, 'CDIDataObjectFacadeInterface', $this);
   }
@@ -16,6 +18,14 @@ class CDIDataObject extends CDIAbstractData implements CDIDataObjectInterface {
     return $this->dataType;
   }
   
+  public function getRawValue($key) {
+    return $this->rawData[$key];
+  }
+  
+  public function setRawValue($key, $value) {
+    $this->rawData[$key] = $value;
+  }
+  
   public function fireCommand(CDITypedCommandInterface $command) {
     if ($command instanceof CDIDataObjectCommandInterface) {
       $command->setDataObject($this);
@@ -24,7 +34,7 @@ class CDIDataObject extends CDIAbstractData implements CDIDataObjectInterface {
     elseif ($command instanceof CDIDataTypeCommandInterface) {
       $command->setDataType($this->getDataType());
     }
-    parent::fireCommand($command);
+    parent::fireGenericCommand($command);
   }
   
 }

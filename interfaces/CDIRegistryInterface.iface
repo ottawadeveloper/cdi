@@ -4,6 +4,6 @@ interface CDIRegistryInterface {
   
   function fireCommand(CDICommandInterface $command);
   
-  function registerReceiver(CDIReceiverInterface $interface, $weight = 0);
+  function registerReceiver(CDIReceiverInterface $receiver, $weight = 0);
   
 }
