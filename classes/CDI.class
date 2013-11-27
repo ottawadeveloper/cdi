@@ -14,7 +14,7 @@ abstract class CDI {
   private static $dataTypeRegistryClass = 'CDIRegistry';
   private static $commandRegistryClass = 'CDIRegistry';
   
-  public static function addDefaultCommandModule($module_name, CDICommandDefinitionInterface $def) {
+  public static function addDefaultCommandModule($module_name, CDICommandModuleDefinitionInterface $def) {
     self::$defaultModules[$module_name] = $def;
   }
   

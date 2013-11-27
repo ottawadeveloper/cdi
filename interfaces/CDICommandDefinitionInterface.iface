@@ -1,12 +1,89 @@
 <?php
+/**
+ * @file
+ * Contains the interface definition for CDICommandModuleDefinitionInterface.
+ */
 
-interface CDICommandDefinitionInterface {
+/**
+ * A command module definition defines everything about a command module. This
+ * is metadata for the command module and is used by the command registry to
+ * lookup information about whether or not an operation is supported.
+ */
+interface CDICommandModuleDefinitionInterface {
   
+  /**
+   * Returns a shortcut name.
+   * 
+   * The shortcut name is a short, unique string identifier that can be used
+   * to quickly refer to the class defined by getFacadeClass().
+   * 
+   * @return string
+   *   A string (must be unique within the set of shortcut strings) that 
+   *   can be used instead of the facade class.
+   * 
+   * @see CDICommandModuleDefinitionInterface::getFacadeClass()
+   * @see CDIDataInterface::facade()
+   */
   function getShortcut();
-  function getCommandLabel();
+  
+  /**
+   * Returns the human-readable label for this command module.
+   * 
+   * @return string
+   *   The human-readable label for this command module.
+   */
+  function getModuleLabel();
+  
+  /**
+   * Returns the facade class that should be used for this module. This is used
+   * to replace the string returned by getShortcut().
+   * 
+   * @return string
+   *   A class name that implements CDIFacadeInterface.
+   * 
+   * @see CDIFacadeInterface
+   */
   function getFacadeClass();
+  
+  /**
+   * Returns the command class that is used by this module.
+   * 
+   * @return string
+   *   A class name that implements CDICommandInterface.
+   * 
+   * @see CDICommandInterface.
+   */
   function getCommandClass();
+  
+  /**
+   * Validates an instance of CDIDataInterface to verify that this command 
+   * module can process items of that type.
+   * 
+   * @param CDIDataInterface $data
+   *   The data object we are about to process.
+   * 
+   * @return boolean
+   *   TRUE if this module can handle the object, otherwise false.
+   */
   function validateData(CDIDataInterface $data);
+  
+  /**
+   * Validates whether or not an instance of CDIReceiverInterface could 
+   * be used with this command module, given an instance of CDIDataInterface.
+   * 
+   * @param CDIReceiverInterface $receiver
+   *   A receiver object.
+   * 
+   * @param CDIDataInterface $data
+   *   A data object.
+   * 
+   * @return boolean
+   *   TRUE if this command module supports the given $receiver and $data 
+   *   pairing, otherwise FALSE.
+   * 
+   * @see CDIFacadeInterface::checkSupport()
+   * @see CDIDataTypeInterface::checkObjectSupport()
+   */
   function validateReceiver(CDIReceiverInterface $receiver, CDIDataInterface $data);
   
 }

@@ -1,9 +1,24 @@
 <?php
-/*
- * VERSION 0.2
+/**
+ * @file
+ * This file contains all the includes needed to setup CDI and its default
+ * command modules.
+ * 
+ * @author Robert Turnbull <robert@ottawadeveloper.com>
+ * @version 0.2
+ * 
+ * CDI (Common Data Interface) is a library that provides a data access 
+ * framework that is extensible both in terms of adding new methods (called
+ * commands) and in terms of adding new data types. The new data types need 
+ * share nothing and only need to implement the commands that are feasible. Data
+ * types provide implementations of commands through receiver objects and each
+ * data type may have many receiver objects, which are used transparently 
+ * through a series of facades.
+ * 
+ * 
  */
 
-
+// Includes for CDI
 
 require "interfaces/CDICommandInterface.iface";
 require "interfaces/CDITypedCommandInterface.iface";
@@ -55,7 +70,7 @@ require "classes/CDIRegistry.class";
 
 
 /*
- * Default module configuration
+ * Default command module configuration
  */
 
 // Load module

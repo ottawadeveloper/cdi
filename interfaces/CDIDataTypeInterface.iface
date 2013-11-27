@@ -6,4 +6,6 @@ interface CDIDataTypeInterface extends CDIDataInterface {
   
   function fireCommand(CDIDataTypeCommandInterface $command);
   
+  function checkObjectSupport($facadeType);
+  
 }

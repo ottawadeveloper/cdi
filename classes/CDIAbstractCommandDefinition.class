@@ -1,6 +1,6 @@
 <?php
 
-abstract class CDIAbstractCommandDefinition implements CDICommandDefinitionInterface {
+abstract class CDIAbstractCommandDefinition implements CDICommandModuleDefinitionInterface {
   
   private $facadeClassName;
   private $commandClassName;
@@ -30,7 +30,7 @@ abstract class CDIAbstractCommandDefinition implements CDICommandDefinitionInter
     return $this->commandClassName;
   }
   
-  public function getCommandLabel() {
+  public function getModuleLabel() {
     return $this->commandLabel;
   }
   

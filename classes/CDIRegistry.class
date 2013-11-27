@@ -23,7 +23,7 @@ class CDIRegistry
     return NULL;
   }
   
-  public function registerCommand(CDICommandDefinitionInterface $command) {
+  public function registerCommand(CDICommandModuleDefinitionInterface $command) {
     $this->commands[$command->getCommandClass()] = $command;
   }
   
@@ -79,7 +79,7 @@ class CDIRegistry
     return FALSE;
   }
   
-  public function checkCommandSupport(CDICommandDefinitionInterface $def, CDIDataInterface $data) {
+  public function checkCommandSupport(CDICommandModuleDefinitionInterface $def, CDIDataInterface $data) {
     if (!$def->validateData($data)) {
       return FALSE;
     }
