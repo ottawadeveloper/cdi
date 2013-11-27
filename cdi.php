@@ -41,7 +41,7 @@ require "interfaces/CDIRegistryInterface.iface";
 require "interfaces/CDICommandRegistryInterface.iface";
 require "interfaces/CDIDataTypeRegistryInterface.iface";
 
-require "interfaces/CDICommandDefinitionInterface.iface";
+require "interfaces/CDICommandModuleDefinitionInterface.iface";
 
 require "classes/CDI.class";
 
