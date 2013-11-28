@@ -1,9 +1,31 @@
 <?php
 
+/**
+ * The main CDI registry. This is all about registering receivers and firing
+ * commands to them.
+ */
 interface CDIRegistryInterface {
   
+  /**
+   * Finds the receiver that can process the given command and then calls
+   * the commands executeAction() function, passing the appropriate receiver.
+   * 
+   * Receivers are processed in order of weight, from highest to lowest. It is
+   * undefined how receivers with the same weight will be processed.
+   * 
+   * @param CDICommandInterface $command
+   *   The command to process.
+   */
   function fireCommand(CDICommandInterface $command);
   
+  /**
+   * Registers a receiver with the registry.
+   * 
+   * @param CDIReceiverInterface $receiver
+   *   The receiver to register.
+   * @param type $weight
+   *   The weight to give the receiver.
+   */
   function registerReceiver(CDIReceiverInterface $receiver, $weight = 0);
   
 }

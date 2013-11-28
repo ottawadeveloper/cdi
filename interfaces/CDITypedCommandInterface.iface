@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Represents a generic command that has a data type.
+ * 
+ */
 interface CDITypedCommandInterface extends CDICommandInterface {
   
+  /**
+   * Retrieves the data type.
+   * 
+   * @return CDIDataTypeInterface
+   *   The data type.
+   */
   function getDataType();
   
 }

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Tagging interface for receivers.
+ */
 interface CDIReceiverInterface {
   
 }

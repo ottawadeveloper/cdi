@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Tagging interface for facades that are targeted at data types.
+ */
 interface CDIDataTypeFacadeInterface extends CDIFacadeInterface, CDIDataTypeInterface {
   
 }

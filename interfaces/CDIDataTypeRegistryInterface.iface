@@ -1,11 +1,35 @@
 <?php
 
+/**
+ * Interface for a data type registry.
+ */
 interface CDIDataTypeRegistryInterface {
   
+  /**
+   * Registers a data type with the registry.
+   * 
+   * @param CDIDataTypeInterface $dataType
+   *   The data type object to register.
+   */
   function registerDataType(CDIDataTypeInterface $dataType);
   
+  /**
+   * Retrieves a data type by its key.
+   * 
+   * @param string $key
+   *   The key of a data type.
+   * 
+   * @return CDIDataTypeInterface
+   *   The datatype that is represented by $key.
+   */
   function loadDataType($key);
   
+  /**
+   * Returns an array of all the registered CDIDataTypeInterface objects.
+   * 
+   * @return array
+   *   An array of CDIDataTypeInterface objects.
+   */
   function listDataTypes();
   
 }

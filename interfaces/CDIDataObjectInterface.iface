@@ -40,10 +40,17 @@ interface CDIDataObjectInterface extends CDIDataInterface {
   function getRawValue($key);
   
   /**
-   * Stores arbitrary raw data with this data object.
+   * Stores arbitrary raw data with this data object. This data can be anything
+   * that needs to be stored.
    * 
-   * @param type $key
-   * @param type $value
+   * Generally, only the receivers should act on this data.
+   * 
+   * @param string $key
+   *   The key to store data under.
+   * @param mixed $value
+   *   Data to store.
+   * 
+   * @see CDIDataObjectInterface:getRawValue()
    */
   function setRawValue($key, $value);
   

@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * Represents a command that targets a data type.
+ */
 interface CDIDataTypeCommandInterface extends CDITypedCommandInterface {
   
+  /**
+   * Sets the data type.
+   * 
+   * @param CDIDataTypeInterface $dataType
+   *   The data type to set.
+   */
   function setDataType(CDIDataTypeInterface $dataType);
   
 }

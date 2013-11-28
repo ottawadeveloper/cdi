@@ -1,7 +1,18 @@
 <?php
 
+/**
+ * Represents a receiver that has a type. All dataobject and datatype receivers
+ * should implement this interface.
+ */
 interface CDITypedReceiverInterface extends CDIReceiverInterface {
   
+  /**
+   * Returns a list of supported data type names (eg values returned by 
+   * CDIDataTypeInterface::getDataTypeName()).
+   * 
+   * @return array
+   *   An array of strings which represent data type names.
+   */
   function supportedTypes();
   
 }

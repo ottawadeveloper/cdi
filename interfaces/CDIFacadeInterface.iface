@@ -1,9 +1,26 @@
 <?php
 
-interface CDIFacadeInterface {
+/**
+ * Facades provide access to customized functionality for items.
+ */
+interface CDIFacadeInterface extends CDIDataInterface {
   
+  /**
+   * Removes the facade from this object.
+   * 
+   * @return CDIDataInterface
+   *   The data item that this facade was built around originally. This might
+   *   be another instance of CDIFacadeInterface or the original object.
+   */
   function strip();
   
+  /**
+   * Checks to see if the operations provided by this facade are supported by
+   * the current registry.
+   * 
+   * @return boolean
+   *   TRUE if the operations can be called successfully, otherwise FALSE.
+   */
   function checkSupport();
   
 }

@@ -1,11 +1,40 @@
 <?php
 
+/**
+ * Represents a data type.
+ */
 interface CDIDataTypeInterface extends CDIDataInterface {
   
+  /**
+   * Retrieves a string representing the data type.
+   * 
+   * @return string
+   *   A unique string representing the data type. Used to load the data
+   *   type.
+   * 
+   * @see CDIDataTypeRegistryInterface::loadDataType().
+   */
   function getDataTypeName();
   
+  /**
+   * Sends a command to the registry for processing.
+   * 
+   * @param CDIDataTypeCommandInterface $command
+   *   The command to send.
+   */
   function fireCommand(CDIDataTypeCommandInterface $command);
   
+  /**
+   * Checks to see if there is support for objects of this data type to be
+   * facaded into $facadeType.
+   * 
+   * @param string $facadeType
+   *   The classname of a class implementing CDIFacadeInterface or a shortcut
+   *   string for one of them.
+   * 
+   * @return boolean
+   *   TRUE if there is support for it, otherwise FALSE.
+   */
   function checkObjectSupport($facadeType);
   
 }
