@@ -1,14 +1,71 @@
 <?php
 
+/**
+ * Defines an abstract base command definition that provides most of the key
+ * features needed through a convienent constructor.
+ */
 abstract class CDIAbstractCommandDefinition implements CDICommandModuleDefinitionInterface {
   
+  /**
+   * The name of the facade class.
+   * 
+   * @var string $facadeClassName
+   */
   private $facadeClassName;
+  
+  /**
+   * The name of the command class.
+   * 
+   * @var string $commandClassName
+   */
   private $commandClassName;
+  
+  /**
+   * A label for this command definition.
+   * 
+   * @var string $commandLabel
+   */
   private $commandLabel;
+  
+  /**
+   * An array of CDIDataInterface classes that are supported by this command.
+   * 
+   * @var array $dataClasses
+   */
   private $dataClasses;
+  
+  /**
+   * An array of CDIReceiverInterface classes that are supported by this 
+   * command.
+   * 
+   * @var array $receiverClasses
+   */
   private $receiverClasses;
+  
+  /**
+   * A shortcut string that can be used by CDIDataInterface::facade() instead of
+   * $facadeClassName.
+   * 
+   * @var string $shortcut
+   */
   private $shortcut;
   
+  /**
+   * Constructs an instance of this object.
+   * 
+   * @param string $label
+   *   The label for this command definition.
+   * @param string $shortcut
+   *   The shortcut string for this command definition.
+   * @param string $commandClass
+   *   The command class that is used by this command definition.
+   * @param string $facadeClass
+   *   The facade class that is used by this command definition.
+   * @param array $dataClasses
+   *   The data classes that this command definition accepts.
+   * @param array $receiverClasses
+   *   The receiver classes that this command definition accepts.
+   */
   public function __construct($label, $shortcut, $commandClass, $facadeClass, array $dataClasses = array(), array $receiverClasses = array()) {
     $this->commandLabel = $label;
     $this->shortcut = $shortcut;

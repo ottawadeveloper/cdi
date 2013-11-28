@@ -1,17 +1,39 @@
 <?php
 
+/**
+ * A basic CDIDataObject that should be good enough for most cases. Data
+ * types with more specific needs can extend this class further.
+ * 
+ * Extensions need to match the constructor (eg it should be possible to build
+ * an object with just a data type definition).
+ */
 class CDIDataObject extends CDIAbstractData implements CDIDataObjectInterface {
   
+  /**
+   * The data type.
+   * 
+   * @var CDIDataType
+   */
   private $dataType = NULL;
   
+  /**
+   * Storage for arbitrary data.
+   * 
+   * @var array
+   */
   private $rawData = array();
+  
+  /**
+   * Constructs an instance of this object.
+   * 
+   * @param CDIDataType $dataType
+   */
+  public function __construct(CDIDataType $dataType) {
+    $this->dataType = $dataType;
+  }
   
   public function facade($facadeType) {
     return parent::buildFacade($facadeType, 'CDIDataObjectFacadeInterface', $this);
-  }
-  
-  public function __construct(CDIDataType $dataType) {
-    $this->dataType = $dataType;
   }
   
   public function getDataType() {

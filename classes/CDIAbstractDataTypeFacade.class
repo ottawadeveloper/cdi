@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * Represents a general data type facade. Most data type facades will want
+ * to extend from this.
+ */
 abstract class CDIAbstractDataTypeFacade extends CDIAbstractData implements CDIDataTypeFacadeInterface {
   
+  /**
+   * The data type for this facade.
+   * 
+   * @var CDIDataTypeInterface
+   */
   private $object = NULL;
   
   public function __construct(CDIDataTypeInterface $dataObject) {

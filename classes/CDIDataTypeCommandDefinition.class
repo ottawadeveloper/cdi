@@ -1,7 +1,24 @@
 <?php
 
+/**
+ * Default implementation of a datatype command definition.
+ */
 class CDIDataTypeCommandDefinition extends CDIAbstractCommandDefinition {
   
+  /**
+   * Constructor.
+   * 
+   * @param string $label
+   *   The human-readable English name of this command.
+   * @param string $commandClass
+   *   The classname of the command class.
+   * @param string $facadeClass
+   *   The classname of the facade class.
+   * @param string $interface
+   *   The classname of the interface.
+   * @param string $shortcut
+   *   A shortcut string for $facadeClass.
+   */
   public function __construct($label, $commandClass, $facadeClass, $interface, $shortcut) {
     parent::__construct($label, $shortcut, $commandClass, $facadeClass, array(
       'CDIDataObjectInterface',

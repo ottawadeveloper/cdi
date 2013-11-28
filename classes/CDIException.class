@@ -1,11 +1,47 @@
 <?php
 
+/**
+ * A special exception for CDI.
+ * 
+ * This keeps the message separate from variables that might change over time.
+ * 
+ * This allows for more easy translation in systems like Drupal.
+ */
 class CDIException extends Exception {
   
+  /**
+   * The message with unreplaced variables.
+   * 
+   * @var string
+   */
   private $unprocessedMessage;
+  
+  /**
+   * An array of replacements.
+   * 
+   * @var array
+   */
   private $variables = array();
+  
+  /**
+   * Our custom code for the error.
+   * 
+   * @var string
+   */
   private $ourCode = '';
   
+  /**
+   * Constructs an exception
+   * 
+   * @param string $code
+   *   The error code.
+   * @param string $message
+   *   The error message.
+   * @param array $variables
+   *   An array of variables to replace in $message. Defaults to an empty array.
+   * @param Exception $previous
+   *   The previous exception. Defaults to NULL.
+   */
   public function __construct($code, $message, array $variables = array(), Exception $previous = NULL) {
     $this->unprocessedMessage = $message;
     $this->variables = $variables;
@@ -18,7 +54,13 @@ class CDIException extends Exception {
     }
   }
   
-  public function assembleMessage() {
+  /**
+   * Assembles the message.
+   * 
+   * @return string
+   *   The assembled message.
+   */
+  private function assembleMessage() {
     $m = $this->unprocessedMessage;
     foreach ($this->variables as $k => $t) {
       $m = str_replace($k, $t, $m);

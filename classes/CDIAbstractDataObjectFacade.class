@@ -1,9 +1,23 @@
 <?php
 
+/**
+ * A base facade for a data object, implementing many of the common methods 
+ * for them. Most data object facades will want to extend from this class.
+ */
 abstract class CDIAbstractDataObjectFacade extends CDIAbstractData implements CDIDataObjectFacadeInterface {
   
+  /**
+   * The data object we have build a facade around.
+   * @var type 
+   */
   private $object = NULL;
   
+  /**
+   * A constructor for facades. 
+   * 
+   * @param CDIDataObjectInterface $dataObject
+   *   The data object to wrap.
+   */
   public function __construct(CDIDataObjectInterface $dataObject) {
     $this->object = $dataObject;
   }

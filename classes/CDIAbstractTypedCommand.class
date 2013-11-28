@@ -1,9 +1,24 @@
 <?php
 
+/**
+ * An abstracted typed command.
+ */
 abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
   
+  /**
+   * An array of interfaces that are valid receivers for this command.
+   * 
+   * @var array
+   */
   private $validInterfaces = array();
   
+  /**
+   * Constructor.
+   * 
+   * @param string|array $validInterfaces
+   *   The interface name that the receiver must match in order to be a valid
+   *   receiver OR an array of such names.
+   */
   public function __construct($validInterfaces) {
     if (is_array($validInterfaces)) {
       $this->validInterfaces = $validInterfaces;
@@ -11,11 +26,42 @@ abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
     else {
       $this->validInterfaces = array($validInterfaces);
     }
+    $this->valid
   }
   
+  /**
+   * Implements CDICommandInterface::validReceiver().
+   * 
+   * This implementation uses the array of valid interfaces to validate
+   * that the interface is the correct one, as well as making sure it is
+   * a CDITypedReceiverInterface.
+   * 
+   * If both of those are correct, it also validates that the data type name 
+   * is present in CDITypedReceiverInterface::supportedTypes().
+   * 
+   * @param CDIReceiverInterface $receiver
+   *   The receiver object to check
+   * 
+   * @return boolean
+   *   TRUE if the receiver object meets the following conditions:
+   *   - Is an instance of CDITypedReceiverInterface
+   *   - Implements one of the interfaces in $validInterfaces
+   *   - Contains the command's datatype name in its supportedTypes() return
+   *     value.
+   *   Otherwise, returns FALSE.
+   */
   public function validReceiver(CDIReceiverInterface $receiver) {
     $implements = class_implements($receiver);
     if (!in_array('CDITypedReceiverInterface', $implements)) {
+      return FALSE;
+    }
+    $found = FALSE;
+    foreach ($this->validInterfaces as $validInterface) {
+      if (in_array($validInterface, $implements)) {
+        $found = TRUE;
+      }
+    }
+    if (!$found) {
       return FALSE;
     }
     $supportedTypes = $receiver->supportedTypes();

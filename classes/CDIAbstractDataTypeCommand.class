@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * Represents a generalized data type command.
+ */
 abstract class CDIAbstractDataTypeCommand extends CDIAbstractTypedCommand 
     implements CDIDataTypeCommandInterface {
 
+  /**
+   * The data type for this command.
+   * 
+   * @var CDIDataTypeInterface
+   */
   private $dataType = NULL;
   
   public function setDataType(CDIDataTypeInterface $dataType) {

@@ -1,9 +1,24 @@
 <?php
 
+/**
+ * Base class for typed receivers.
+ */
 abstract class CDIAbstractTypedReceiver implements CDITypedReceiverInterface {
   
+  /**
+   * An array of type strings that are supported by this class.
+   * 
+   * @var array
+   */
   private $supportedTypes = array();
   
+  /**
+   * Constructor.
+   * 
+   * @param array $supportedTypes
+   *   The string machine name of a supported data type, or an array of
+   *   such values.
+   */
   public function __construct($supportedTypes) {
     $this->supportedTypes = $supportedTypes;
     if (!is_array($this->supportedTypes)) {
@@ -11,6 +26,11 @@ abstract class CDIAbstractTypedReceiver implements CDITypedReceiverInterface {
     }
   }
   
+  /**
+   * Returns the array of supported types.
+   * 
+   * @return array
+   */
   public function supportedTypes() {
     return $this->supportedTypes;
   }

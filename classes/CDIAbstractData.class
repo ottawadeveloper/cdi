@@ -1,7 +1,39 @@
 <?php
 
+/**
+ * An abstract parent class that provides some functionality that is useful to
+ * both datatypes, dataobjects and their facades.
+ */
 abstract class CDIAbstractData implements CDIDataInterface {
   
+  /**
+   * Creates a facade around the given item, if it meets certain conditions.
+   * 
+   * Conditions:
+   * - If $facadeType is a shortcut name, it must be found in the command 
+   *   registry. If it is not, it throws an error. If it is, the facade class
+   *   from the command registry is used as $facadeType.
+   * - If the class represented by $facadeType does not exist, it throws an
+   *   error.
+   * - If the class represented by $facadeType does not implement 
+   *   $facadeInterface, it throws an error.
+   * 
+   * @param string $facadeType
+   *   A class name for a facade or a shortcut string for one.
+   * @param string $facadeInterface
+   *   The interface that the facade must implement to be valid.
+   * @param CDIDataInterface $wrappedObject
+   *   The object that we will wrap for the facade.
+   * @param boolean $useShortcut
+   *   If FALSE, the shortcut name step is skipped (saving time).
+   * 
+   * @return CDIFacadeInterface
+   *   An implementation of CDIFacadeInterface that is valid for the given
+   *   parameters.
+   * 
+   * @throws CDIException
+   *   If one of the conditions fails.
+   */
   function buildFacade($facadeType, $facadeInterface, $wrappedObject, $useShortcut = TRUE) {
     if ($useShortcut) {
       $actualType = CDI::getCommandRegistry()->findFacadeFromShortcut($facadeType);
@@ -28,6 +60,15 @@ abstract class CDIAbstractData implements CDIDataInterface {
     ));
   }
   
+  /**
+   * Fires a command, regardless of its type, up to the registry.
+   * 
+   * Implementing interfaces should use this to fire commands, so that they
+   * don't have to worry about targeting the registry.
+   * 
+   * @param CDICommandInterface $command
+   *   The command to fire.
+   */
   function fireGenericCommand(CDICommandInterface $command) {
     CDI::getRegistry()->fireCommand($command);
   }

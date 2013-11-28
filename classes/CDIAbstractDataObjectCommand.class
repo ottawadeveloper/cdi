@@ -1,8 +1,17 @@
 <?php
 
+/**
+ * Provides a generic implementatino of a data object command that
+ * can be extended.
+ */
 abstract class CDIAbstractDataObjectCommand extends CDIAbstractTypedCommand
     implements CDIDataObjectCommandInterface {
   
+  /**
+   * The data object that the command was issued for.
+   * 
+   * @var CDIDataObjectInterface
+   */
   private $dataObject = NULL;
   
   public function setDataObject(CDIDataObjectInterface $dataObject) {

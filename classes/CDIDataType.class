@@ -1,9 +1,25 @@
 <?php
 
+/**
+ * Default implementation of a data type.
+ * 
+ * This should be good enough for most cases.
+ */
 class CDIDataType extends CDIAbstractData implements CDIDataTypeInterface {
   
+  /**
+   * The name of the data type.
+   * 
+   * @var string
+   */
   private $typeName;
   
+  /**
+   * Constructor.
+   * 
+   * @param string $typeName
+   *   The name of the data type.
+   */
   public function __construct($typeName) {
     $this->typeName = $typeName;
   }

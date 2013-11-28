@@ -1,17 +1,54 @@
 <?php
 
+/**
+ * Generic registry class that can function anywhere.
+ */
 class CDIRegistry 
     implements CDIRegistryInterface, 
                CDIDataTypeRegistryInterface,
                CDICommandModuleRegistryInterface {
   
+  /**
+   * Sorts an array of receivers.
+   * 
+   * @param array $delegate1
+   *   The first receiver.
+   * @param array $delegate2
+   *   The second receiver.
+   * 
+   * @return int
+   *   Integer to compare them with.
+   */
   public static function compareReceiverEntries($delegate1, $delegate2) {
     return $delegate1['weight'] - $delegate2['weight'];
   }
   
+  /**
+   * An array of receivers.
+   * 
+   * @var array
+   */
   private $receivers = array();
+  
+  /**
+   * A flag to check if the receivers need to be sorted by weight.
+   * 
+   * @var boolean
+   */
   private $sorted = TRUE;
+  
+  /**
+   * An array of data types.
+   * 
+   * @var array
+   */
   private $types = array();
+  
+  /**
+   * An array of command module definitions.
+   * 
+   * @var array
+   */
   private $commands = array();
   
   public function findFacadeFromShortcut($facadeType) {
