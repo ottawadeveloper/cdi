@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * Receiver objects must implement this to get the load functionality.
+ */
 interface CDILoadInterface extends CDITypedReceiverInterface {
   
-  function load($identifier, $context = NULL);
+  /**
+   * Loads a CDI object.
+   * 
+   * @param mixed $identifier
+   *   An identifier for a CDI object.
+   */
+  function load($identifier);
   
 }

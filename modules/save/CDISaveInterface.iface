@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Interface for the save operation.
+ */
 interface CDISaveInterface extends CDITypedReceiverInterface {
   
+  /**
+   * Saves the object
+   * 
+   * @param CDIDataObjectInterface $dataObject
+   *   The object to save.
+   * 
+   * @return boolean
+   *   TRUE if the object was saved, otherwise FALSE.
+   */
   function save(CDIDataObjectInterface $dataObject);
   
 }

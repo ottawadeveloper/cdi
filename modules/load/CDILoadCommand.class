@@ -1,21 +1,45 @@
 <?php
 
+/**
+ * The load command.
+ */
 class CDILoadCommand extends CDIAbstractDataTypeCommand {
   
+  /**
+   * The requested ID.
+   * 
+   * @var mixed
+   */
   private $id;
-  private $subtype;
+    
+  /**
+   * The loaded object.
+   * 
+   * @var CDIDataObjectInterface
+   */
   private $object;
   
-  public function __construct($id, $subtype) {
+  /**
+   * Constructor.
+   * 
+   * @param mixed $id
+   *   The ID of the object to load.
+   */
+  public function __construct($id) {
     parent::__construct(array('CDILoadInterface'));
     $this->id = $id;
-    $this->subtype = $subtype;
   }
   
   public function executeAction(CDIReceiverInterface $receiver) {
-    $this->object = $receiver->load($this->id, $this->subtype);
+    $this->object = $receiver->load($this->id);
   }
   
+  /**
+   * Returns the loaded object.
+   * 
+   * @return CDIDataObjectInterface
+   *   The loaded object.
+   */
   public function getObject() {
     return $this->object;
   }

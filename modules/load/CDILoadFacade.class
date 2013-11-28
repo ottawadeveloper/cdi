@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * Facade for the load command.
+ */
 class CDILoadFacade extends CDIAbstractDataTypeFacade {
   
-  public function load($id, $subtype = NULL) {
-    $command = new CDILoadCommand($id, $subtype);
+  /**
+   * Loads an object by it's ID.
+   * 
+   * @param mixed $id
+   *   The ID of the object.
+   * 
+   * @return CDIDataObjectInterface
+   *   A data object.
+   */
+  public function load($id) {
+    $command = new CDILoadCommand($id);
     $this->fireCommand($command);
     return $command->getObject();
   }

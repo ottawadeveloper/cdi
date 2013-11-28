@@ -1,9 +1,20 @@
 <?php
 
+/**
+ * Command object for the save command.
+ */
 class CDISaveCommand extends CDIAbstractDataObjectCommand {
   
+  /**
+   * Results of the save operation. Generally will be boolean or boolean-ish.
+   * 
+   * @var boolean
+   */
   private $results = NULL;
   
+  /**
+   * Constructor.
+   */
   public function __construct() {
     parent::__construct(array('CDISaveInterface'));
   }
@@ -16,6 +27,11 @@ class CDISaveCommand extends CDIAbstractDataObjectCommand {
     return 'Save command';
   }
   
+  /**
+   * Gets the results of the save operation.
+   * 
+   * @return boolean
+   */
   public function getResults() {
     return $this->results;
   }

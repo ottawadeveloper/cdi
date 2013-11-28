@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * Facade for the save operation.
+ */
 class CDISaveFacade extends CDIAbstractDataObjectFacade {
   
+  /**
+   * Saves the object.
+   * 
+   * @return boolean
+   *   Returns TRUE if the save was successful, otherwise FALSE.
+   */
   public function save() {
     $command = new CDISaveCommand();
     $this->fireCommand($command);
