@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * All facades for CDIDataObject must implement this interface in order to be
+ * considered valid. 
+ * 
+ * This is simply an amalgamation of CDIFacadeInterface and 
+ * CDIDataObjectInterface.
+ */
 interface CDIDataObjectFacadeInterface extends CDIFacadeInterface, CDIDataObjectInterface {
   
 }

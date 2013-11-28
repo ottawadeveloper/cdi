@@ -36,7 +36,7 @@ abstract class CDIAbstractDataObjectFacade extends CDIAbstractData implements CD
   }
   
   public function checkSupport() {
-    return CDI::getCommandRegistry()->checkCommandSupportForFacade($this, $this->object);
+    return CDI::getCommandRegistry()->checkFacadeSupport($this, $this->object);
   }
   
 }

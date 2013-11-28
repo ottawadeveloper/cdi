@@ -38,7 +38,7 @@ require "interfaces/CDIReceiverInterface.iface";
 require "interfaces/CDITypedReceiverInterface.iface";
 
 require "interfaces/CDIRegistryInterface.iface";
-require "interfaces/CDICommandRegistryInterface.iface";
+require "interfaces/CDICommandModuleRegistryInterface.iface";
 require "interfaces/CDIDataTypeRegistryInterface.iface";
 
 require "interfaces/CDICommandModuleDefinitionInterface.iface";

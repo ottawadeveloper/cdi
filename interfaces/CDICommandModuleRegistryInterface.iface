@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * The command module registry stores all the command module definitions and
+ * is capable of taking actions on them.
+ */
+interface CDICommandModuleRegistryInterface {
+  
+  /**
+   * Registers a command with the registry.
+   * 
+   * @param CDICommandModuleDefinitionInterface $command
+   *   A completed command module definition object.
+   */
+  function registerCommandModule(CDICommandModuleDefinitionInterface $command);
+  
+  /**
+   * Checks to see if there is a receiver supports the given 
+   * facade with the given data.
+   * 
+   * Generally, this function is responsible for finding the command module from
+   * the facade then using it with checkModuleSupport().
+   * 
+   * @param CDIFacadeInterface $facade
+   *   A facade object to check.
+   * @param CDIDataInterface $data
+   *   The data object that would like to use the facade.
+   * 
+   * @return boolean
+   *   TRUE if the facade is supported for the given data item, otherwise FALSE.
+   * 
+   * @see CDICommandModuleRegistryInterface::checkModuleSupport()
+   * @see CDICommandModuleDefinitionInterface::getFacadeClass()
+   */
+  function checkFacadeSupport(CDIFacadeInterface $facade, CDIDataInterface $data);
+  
+  /**
+   * Checks to see if there is a valid receiver that supports the given module
+   * with the given data.
+   * 
+   * @param CDICommandModuleDefinitionInterface $command
+   *   The command module to check.
+   * @param CDIDataInterface $data
+   *   A data object that would like to use the command.
+   * 
+   * @return boolean
+   *   TRUE if the module is supported for the given item, otherwise FALSE.
+   * 
+   * @see CDICommandModuleDefinitionInterface::validateReceiver()
+   */
+  function checkModuleSupport(CDICommandModuleDefinitionInterface $command, CDIDataInterface $data);
+  
+  /**
+   * Checks to see if there is a command module registered with the given
+   * $facadeType as a shortcut token. If so, returns the facade class from that
+   * command module.
+   * 
+   * @param string $facadeShortcut
+   *   The facade shortcut name to look for.
+   * 
+   * @return string
+   *   The classname of a class that implements CDIFacadeInterface.
+   */
+  function findFacadeFromShortcut($facadeShortcut);
+  
+}

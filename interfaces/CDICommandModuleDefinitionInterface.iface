@@ -51,7 +51,7 @@ interface CDICommandModuleDefinitionInterface {
    * @return string
    *   A class name that implements CDICommandInterface.
    * 
-   * @see CDICommandInterface.
+   * @see CDICommandInterface
    */
   function getCommandClass();
   

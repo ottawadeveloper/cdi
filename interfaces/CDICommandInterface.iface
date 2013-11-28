@@ -1,10 +1,36 @@
 <?php
 
+/**
+ * A command represents the method that needs to be invoked.
+ */
 interface CDICommandInterface {
   
+  /**
+   * Validates that the given receiver can handle whatever is coming in
+   * executeAction().
+   * 
+   * @param CDIReceiverInterface $receiver
+   *   The receiver that is being checked.
+   * 
+   * @return boolean
+   *   TRUE if the receiver should handle it, otherwise FALSE.
+   */
   function validReceiver(CDIReceiverInterface $receiver);
+  
+  /**
+   * Executes the method on the receiver that this command needs to execute.
+   * 
+   * @param CDIReceiverInterface $receiver
+   *   The receiver that was validated by validReceiver()
+   */
   function executeAction(CDIReceiverInterface $receiver);
   
+  /**
+   * Returns the name of this command, for error messages.
+   * 
+   * @return string
+   *   A human-readable name for this command.
+   */
   function toString();
   
 }

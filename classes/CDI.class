@@ -62,14 +62,14 @@ abstract class CDI {
     }
     if (is_object($class)) {
       $reflect = new ReflectionClass(get_class($class));
-      if ($reflect->implementsInterface('CDICommandRegistryInterface')) {
+      if ($reflect->implementsInterface('CDICommandModuleRegistryInterface')) {
         self::$commandRegistryClass = get_class($class);
         self::$commandRegistry = $class;
       }
     }
     else {
       $reflect = new ReflectionClass($class);
-      if ($reflect->implementsInterface('CDICommandRegistryInterface')) {
+      if ($reflect->implementsInterface('CDICommandModuleRegistryInterface')) {
         self::$commandRegistryClass = $class;
       }
     }
@@ -105,13 +105,13 @@ abstract class CDI {
   
   public static function registerAllDefaults() {
     foreach (self::getDefaultModules() as $def) {
-      self::getCommandRegistry()->registerCommand($def);
+      self::getCommandRegistry()->registerCommandModule($def);
     }
   }
   
   public static function registerDefaultModule($module_name) {
     if (!empty(self::$defaultModules[$module_name])) {
-      self::getCommandRegistry()->registercommand(self::$defaultModules[$module_name]);
+      self::getCommandRegistry()->registerCommandModule(self::$defaultModules[$module_name]);
       return TRUE;
     }
     return FALSE;

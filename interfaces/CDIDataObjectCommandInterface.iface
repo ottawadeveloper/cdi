@@ -1,9 +1,24 @@
 <?php
 
+/**
+ * Represents a command specific to a data object.
+ */
 interface CDIDataObjectCommandInterface extends CDITypedCommandInterface {
   
+  /**
+   * Sets the data object that is executing this command.
+   * 
+   * @param CDIDataObjectInterface $object
+   *   The data object executing this command.
+   */
   function setDataObject(CDIDataObjectInterface $object);
   
+  /**
+   * Returns the data object that is executing this command.
+   * 
+   * @return CDIDataObjectInterface
+   *   The data object executing this command.
+   */
   function getDataObject();
   
 }

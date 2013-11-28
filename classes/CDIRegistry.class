@@ -3,7 +3,7 @@
 class CDIRegistry 
     implements CDIRegistryInterface, 
                CDIDataTypeRegistryInterface,
-               CDICommandRegistryInterface {
+               CDICommandModuleRegistryInterface {
   
   public static function compareReceiverEntries($delegate1, $delegate2) {
     return $delegate1['weight'] - $delegate2['weight'];
@@ -23,7 +23,7 @@ class CDIRegistry
     return NULL;
   }
   
-  public function registerCommand(CDICommandModuleDefinitionInterface $command) {
+  public function registerCommandModule(CDICommandModuleDefinitionInterface $command) {
     $this->commands[$command->getCommandClass()] = $command;
   }
   
@@ -69,17 +69,17 @@ class CDIRegistry
     ));
   }
   
-  public function checkCommandSupportForFacade(CDIFacadeInterface $facade, CDIDataInterface $data) {
+  public function checkFacadeSupport(CDIFacadeInterface $facade, CDIDataInterface $data) {
     $class = get_class($facade);
     foreach ($this->commands as $commandDefinition) {
       if ($commandDefinition->getFacadeClass() == $class) {
-        return $this->checkCommandSupport($commandDefinition, $data);
+        return $this->checkModuleSupport($commandDefinition, $data);
       }
     }
     return FALSE;
   }
   
-  public function checkCommandSupport(CDICommandModuleDefinitionInterface $def, CDIDataInterface $data) {
+  public function checkModuleSupport(CDICommandModuleDefinitionInterface $def, CDIDataInterface $data) {
     if (!$def->validateData($data)) {
       return FALSE;
     }

@@ -1,12 +1,50 @@
 <?php
 
+/**
+ * A data object is a single item of a data type (if you will, data types are
+ * like classes, data objects are like objects). 
+ */
 interface CDIDataObjectInterface extends CDIDataInterface {
   
+  /**
+   * Retrieves the data type of this object.
+   * 
+   * @return CDIDataTypeInterface
+   *   The data type object for this object.
+   */
   function getDataType();
   
+  /**
+   * Sends a command to the registry to find a receiver for it and have the
+   * command execute its action against that receiver.
+   * 
+   * @param CDITypedCommandInterface $command
+   *   The command to execute.
+   * 
+   * @throws CDIException
+   *   A CDIException is thrown if a receiver cannot be found for the command.
+   */
   function fireCommand(CDITypedCommandInterface $command);
   
+  /**
+   * Retrieves a raw value that was set by setRawValue().
+   * 
+   * @param string $key
+   *   The key to return the value of.
+   * 
+   * @return mixed
+   *   The data set by setRawValue().
+   * 
+   * @see CDIDataObjectInterface::setRawValue()
+   */
   function getRawValue($key);
+  
+  /**
+   * Stores arbitrary raw data with this data object.
+   * 
+   * @param type $key
+   * @param type $value
+   */
   function setRawValue($key, $value);
   
 }

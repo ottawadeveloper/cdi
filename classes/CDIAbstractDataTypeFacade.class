@@ -25,7 +25,11 @@ abstract class CDIAbstractDataTypeFacade extends CDIAbstractData implements CDID
   }
   
   public function checkSupport() {
-    return CDI::getCommandRegistry()->checkCommandSupportForFacade($this, $this->object);
+    return CDI::getCommandRegistry()->checkFacadeSupport($this, $this->object);
+  }
+  
+  public function checkObjectSupport($facadeType) {
+    return $this->object->checkObjectSupport($facadeType);
   }
   
 }

@@ -1,7 +1,27 @@
 <?php
 
+/**
+ * All items that can be used as CDI data items implement this interface.
+ * 
+ * A CDI data item is one that can be facaded to use a command.
+ */
 interface CDIDataInterface {
   
+  /**
+   * Returns a facade wrapped around this object.
+   * 
+   * Generally facades match the interface that their wrapped object supports
+   * (eg all Facades support this CDIDataInterface, facades for CDIDataObject
+   * implement CDIDataObjectInterface, etc). This means you can generally
+   * facade an object from a facade.
+   * 
+   * @param string $facadeType
+   *   The name of a facade class OR the shortcut name for a facade class.
+   * 
+   * @return CDIFacadeInterface
+   *   A facade item of the appropriate type (either $facadeType or the 
+   *   appropriate type looked up using its shortcut).
+   */
   function facade($facadeType);
   
 }
