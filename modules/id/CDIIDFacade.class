@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Facade class for the ID.
+ */
 class CDIIDFacade extends CDIAbstractDataObjectFacade {
   
+  /**
+   * Gets the ID of the object.
+   * 
+   * @return mixed
+   * 
+   * @see CDIIDInterface::id().
+   */
   public function id() {
     $command = new CDIIDCommand();
     $this->fireCommand($command);

@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Receivers need to implement this to handle IDs.
+ */
 interface CDIIDInterface extends CDITypedReceiverInterface {
   
+  /**
+   * Returns the ID of the object.
+   * 
+   * @param CDIDataObjectInterface $object
+   *   The object to get the ID of.
+   * 
+   * @return mixed
+   *   The ID of the object.
+   */
   function id(CDIDataObjectInterface $object);
   
 }

@@ -1,9 +1,20 @@
 <?php
 
+/**
+ * The command object for an ID.
+ */
 class CDIIDCommand extends CDIAbstractDataObjectCommand {
   
+  /**
+   * The ID of the item.
+   * 
+   * @var mixed
+   */
   private $id;
   
+  /**
+   * Constructor.
+   */
   public function __construct() {
     parent::__construct(array('CDIIDInterface'));
   }
@@ -12,6 +23,11 @@ class CDIIDCommand extends CDIAbstractDataObjectCommand {
     $this->id = $receiver->id($this->getDataObject());
   }
   
+  /**
+   * The ID of the item.
+   * 
+   * @return mixed
+   */
   public function getID() {
     return $this->id;
   }
