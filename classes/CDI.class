@@ -1,23 +1,75 @@
 <?php
 
+/**
+ * This is a core static class that provides access to the registries.
+ * 
+ * Users of this library should use this class to get the registries they need
+ * to access. They can also use it to change the object that will represent
+ * those registries (the default object is CDIRegistry which should serve
+ * perfectly well for most cases).
+ */
 abstract class CDI {
   
+  /**
+   * The registry object that stores receivers.
+   * 
+   * @var CDIRegistryInterface
+   */
   private static $registry = NULL;
   
+  /**
+   * The data type registry object that stores data types.
+   * 
+   * @var CDIDataTypeRegistryInterface
+   */
   private static $dataTypeRegistry = NULL;
   
+  /**
+   * The command module registry that stores meta data.
+   * 
+   * @var CDICommandModuleRegistryInterface
+   */
   private static $commandRegistry = NULL;
   
+  /**
+   * Stores definitions of command modules that can be enabled / disabled.
+   * 
+   * @var array
+   */
   private static $defaultModules = array();
   
+  /**
+   * Stores the class name of the registry class.
+   * 
+   * @var string
+   */
   private static $registryClass = 'CDIRegistry';
+  
+  /**
+   * Stores the class name of the data type registry class.
+   * 
+   * @var string
+   */
   private static $dataTypeRegistryClass = 'CDIRegistry';
+  
+  /**
+   * Stores the class name of the command module registry class.
+   * 
+   * @var string
+   */
   private static $commandRegistryClass = 'CDIRegistry';
   
-  public static function addDefaultCommandModule($module_name, CDICommandModuleDefinitionInterface $def) {
-    self::$defaultModules[$module_name] = $def;
-  }
-  
+  /**
+   * Sets the registry class.
+   * 
+   * @param string|object $class
+   *   The new registry class, or an object to use as the registry class. Must 
+   *   implement CDIRegistryInterface in either case.
+   * 
+   * @throws CDIException
+   *   If $class is not an instance of CDIRegistryInterface or the name of a
+   *   class that is.
+   */
   public static function setRegistryClass($class) {
     if (!empty(self::$registry)) {
       throw new CDIException('CDI-1004', 'The registry has already been built');
@@ -37,6 +89,17 @@ abstract class CDI {
     }
   }
   
+  /**
+   * Sets the data type registry class.
+   * 
+   * @param string|object $class
+   *   The new registry class, or an object to use as the registry class. Must 
+   *   implement CDIDataTypeRegistryInterface in either case.
+   * 
+   * @throws CDIException
+   *   If $class is not an instance of CDIDataTypeRegistryInterface or the name 
+   *   of a class that is.
+   */
   public static function setDataTypeRegistryClass($class) {
     if (!empty(self::$dataTypeRegistry)) {
       throw new CDIException('CDI-1005', 'The data type registry has already been built');
@@ -56,7 +119,18 @@ abstract class CDI {
     }
   }
   
-  public static function setCommandRegistryClass($class) {
+  /**
+   * Sets the command module registry class.
+   * 
+   * @param string|object $class
+   *   The new registry class, or an object to use as the registry class. Must 
+   *   implement CDICommandModuleRegistryInterface in either case.
+   * 
+   * @throws CDIException
+   *   If $class is not an instance of CDICommandModuleRegistryInterface or the 
+   *   name of a class that is.
+   */
+  public static function setCommandModuleRegistryClass($class) {
     if (!empty(self::$commandRegistry)) {
       throw new CDIException('CDI-1005', 'The command registry has already been built');
     }
@@ -75,6 +149,14 @@ abstract class CDI {
     }
   }
   
+  /**
+   * Returns the registry. Instantiates it if it does not exist. 
+   * 
+   * Singleton pattern.
+   * 
+   * @return CDIRegistryInterface
+   *   The registry object.
+   */
   public static function getRegistry() {
     if (empty(self::$registry)) {
       $class = self::$registryClass;
@@ -83,6 +165,14 @@ abstract class CDI {
     return self::$registry;
   }
   
+  /**
+   * Returns the data type registry. Instatiates it if it does not exist.
+   * 
+   * Singleton pattern.
+   * 
+   * @return CDIDataTypeRegistryInterface
+   *   The data type registry object.
+   */
   public static function getDataTypeRegistry() {
     if (empty(self::$dataTypeRegistry)) {
       $class = self::$dataTypeRegistryClass;
@@ -91,6 +181,15 @@ abstract class CDI {
     return self::$dataTypeRegistry;
   }
   
+  
+  /**
+   * Returns the command module registry. Instatiates it if it does not exist.
+   * 
+   * Singleton pattern.
+   * 
+   * @return CDICommandModuleRegistryInterface
+   *   The command module registry object.
+   */
   public static function getCommandRegistry() {
     if (empty(self::$commandRegistry)) {
       $class = self::$commandRegistryClass;
@@ -99,17 +198,55 @@ abstract class CDI {
     return self::$commandRegistry;
   }
   
-  public static function getDefaultModules() {
+  /**
+   * Returns a list of all the available modules.
+   * 
+   * @return array
+   *   An array of CDICommandModuleDefinitionInterface objects, keyed by a 
+   *   unique key.
+   */
+  public static function getAvailableModules() {
     return self::$defaultModules;
   }
   
-  public static function registerAllDefaults() {
-    foreach (self::getDefaultModules() as $def) {
+  /**
+   * Adds a command module to the list of available modules.
+   * 
+   * @param string $module_name
+   *   A unique key identifying the module.
+   * @param CDICommandModuleDefinitionInterface $def
+   *   A command module definition.
+   */
+  public static function addCommandModule($module_name, CDICommandModuleDefinitionInterface $def) {
+    self::$defaultModules[$module_name] = $def;
+  }
+  
+  /**
+   * Registers all the available command modules with the 
+   * current CDI command registry.
+   * 
+   * This should only be called after setting up the class for the registry if
+   * needed.
+   */
+  public static function registerAll() {
+    foreach (self::getAvailableModules() as $def) {
       self::getCommandRegistry()->registerCommandModule($def);
     }
   }
   
-  public static function registerDefaultModule($module_name) {
+  /**
+   * Registers an available command module with the command registry.
+   * 
+   * This should only be called after setting up the class for the registry if
+   * needed.
+   * 
+   * @param string $module_name
+   *   The unique key identifying the module.
+   * 
+   * @return boolean
+   *   TRUE if the module was found and registered, otherwise FALSE.
+   */
+  public static function registerModule($module_name) {
     if (!empty(self::$defaultModules[$module_name])) {
       self::getCommandRegistry()->registerCommandModule(self::$defaultModules[$module_name]);
       return TRUE;

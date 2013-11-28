@@ -78,7 +78,7 @@ define('CDI_MODULE_LOAD', 'load');
 require "modules/load/CDILoadCommand.class";
 require "modules/load/CDILoadFacade.class";
 require "modules/load/CDILoadInterface.iface";
-CDI::addDefaultCommandModule(CDI_MODULE_LOAD, 
+CDI::addCommandModule(CDI_MODULE_LOAD, 
   new CDIDataTypeCommandDefinition(
     'Load',
     'CDILoadCommand', 
@@ -93,7 +93,7 @@ define('CDI_MODULE_SAVE', 'save');
 require "modules/save/CDISaveCommand.class";
 require "modules/save/CDISaveFacade.class";
 require "modules/save/CDISaveInterface.iface";
-CDI::addDefaultCommandModule(CDI_MODULE_SAVE, 
+CDI::addCommandModule(CDI_MODULE_SAVE, 
   new CDIDataObjectCommandDefinition(
     'Save',
     'CDISaveCommand', 
@@ -108,7 +108,7 @@ define('CDI_MODULE_ID', 'id');
 require "modules/id/CDIIDCommand.class";
 require "modules/id/CDIIDFacade.class";
 require "modules/id/CDIIDInterface.iface";
-CDI::addDefaultCommandModule(CDI_MODULE_ID,
+CDI::addCommandModule(CDI_MODULE_ID,
   new CDIDataObjectCommandDefinition(
     'ID',
     'CDIIDCommand',
