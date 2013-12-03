@@ -1,7 +1,23 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIGuidDeleteCommand extends CDIAbstractDataObjectCommand {
+  
+  private $result;
+  
+  public function __construct() {
+    parent::__construct(array('CDIGuidDeleteInterface'));
+  }
+  
+  public function toString() {
+    return 'GUID Delete';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->result = $receiver->guidDelete($this->getDataObject());
+  }
+  
+  public function getResult() {
+    return $this->result;
+  }
+  
+}
