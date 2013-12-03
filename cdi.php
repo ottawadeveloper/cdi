@@ -259,3 +259,18 @@ CDI::addCommandModule(CDI_MODULE_STUB,
     CDI_COMMAND_STUB
   )
 );
+
+define('CDI_MODULE_URL', 'url');
+define('CDI_COMMAND_URL', 'url');
+require 'modules/stub/CDICanonUrlCommand.class';
+require 'modules/stub/CDICanonUrlFacade.class';
+require 'modules/stub/CDICanonUrlInterface.iface';
+CDI::addCommandModule(CDI_MODULE_URL,
+  new CDIDataObjectCommandDefinition(
+    'Get URL',
+    'CDICanonUrlCommand',
+    'CDICanonUrlFacade',
+    'CDICanonUrlInterface',
+    CDI_COMMAND_URL
+  )
+);

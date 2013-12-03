@@ -1,7 +1,23 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDICanonUrlCommand extends CDIAbstractDataObjectCommand {
+  
+  private $url = NULL;
+  
+  public function __construct() {
+    parent::__construct(array('CDICanonUrlInterface'));
+  }
+  
+  public function toString() {
+    return 'Canonical URL';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->url = $receiver->url($this->getDataObject());
+  }
+  
+  public function getURL() {
+    return $this->url;
+  }
+  
+}
