@@ -1,7 +1,23 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIGuidCommand extends CDIAbstractDataObjectCommand {
+
+  private $guid;
+  
+  public function __construct() {
+    parent::__construct(array('CDIGuidInterface'));
+  }
+  
+  public function toString() {
+    return 'Get GUID';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->guid = $receiver->guid($this->getDataObject());
+  }
+  
+  public function getGUID() {
+    return $this->guid;
+  }
+  
+}

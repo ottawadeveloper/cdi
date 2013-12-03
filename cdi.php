@@ -183,3 +183,19 @@ CDI::addCommandModule(CDI_MODULE_LABEL,
     CDI_COMMAND_LABEL
   )
 );
+
+// GUID module
+define('CDI_MODULE_GUID', 'guid');
+define('CDI_COMMAND_GUID', 'guid');
+require 'modules/guid/CDIGuidCommand.class';
+require "modules/guid/CDIGuidFacade.class";
+require "modules/guid/CDIGuidInterface.iface";
+CDI::addCommandModule(CDI_MODULE_GUID,
+  new CDIDataObjectCommandDefinition(
+    'GUID',
+    'CDIGuidCommand',
+    'CDIGuidFacade',
+    'CDIGuidInterface',
+    CID_COMMAND_GUID
+  )
+);

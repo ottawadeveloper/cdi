@@ -1,7 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIGuidFacade extends CDIAbstractDataObjectFacade {
+  
+  public function guid() {
+    $command = new CDIGuidCommand();
+    $this->fireCommand($command);
+    return $command->getGUID();
+  }
+  
+}
