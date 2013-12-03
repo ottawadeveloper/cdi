@@ -1,7 +1,29 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIListCommand extends CDIAbstractDataTypeCommand {
+  
+  private $list = array();
+  private $pageNum = NULL;
+  private $listSize = NULL;
+  
+  public function __construct($listsize = NULL, $pagenum = NULL) {
+    parent::__construct(array('CDIListInterface'));
+    $this->pageNum = $pagenum;
+    $this->listSize = $listsize;
+  }
+  
+  public function toString() {
+    return 'List';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->list = $receiver->listItems($this->pageNum, $this->listSize);
+  }
+  
+  public function getList() {
+    return $this->list;
+  }
+  
+  
+  
+}

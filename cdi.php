@@ -304,3 +304,18 @@ CDI::addCommandModule(CDI_MODULE_DISPLAY,
     CDI_COMMAND_DISPLAY
   )
 );
+
+define('CDI_MODULE_LIST', 'list');
+define('CDI_COMMAND_LIST', 'list');
+require 'module/list/CDIListCommand.class';
+require 'module/list/CDIListFacade.class';
+require 'module/list/CDIListInterface.iface';
+CDI::addCommandModule(CDI_MODULE_LIST,
+  new CDIDataObjectCommandDefinition(
+    'List Object',
+    'CDIListCommand',
+    'CDIListFacade',
+    'CDIListInterface',
+    CDI_COMMAND_LIST
+  )
+);
