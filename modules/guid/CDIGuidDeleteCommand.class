@@ -13,7 +13,7 @@ class CDIGuidDeleteCommand extends CDIAbstractDataObjectCommand {
   }
   
   public function executeAction(CDIReceiverInterface $receiver) {
-    $this->result = $receiver->guidDelete($this->getDataObject());
+    $this->result = $receiver->deleteByGUID($this->getDataObject());
   }
   
   public function getResult() {

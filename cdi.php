@@ -229,3 +229,18 @@ CDI::addCommandModule(CDI_MODULE_GUID_LOAD,
     CID_COMMAND_GUID_LOAD
   )
 );
+
+define('CDI_MODULE_GUID_SAVE', 'guid_save');
+define('CID_COMMAND_GUID_SAVE', 'guid_save');
+require 'modules/guid/CDIGuidSaveCommand.class';
+require "modules/guid/CDIGuidSaveFacade.class";
+require "modules/guid/CDIGuidSaveInterface.iface";
+CDI::addCommandModule(CDI_MODULE_GUID_SAVE,
+  new CDIDataObjectCommandDefinition(
+    'Save by GUID',
+    'CDIGuidSaveCommand',
+    'CDIGuidSaveFacade',
+    'CDIGuidSaveInterface',
+    CID_COMMAND_GUID_SAVE
+  )
+);

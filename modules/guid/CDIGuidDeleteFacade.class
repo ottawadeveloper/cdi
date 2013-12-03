@@ -2,7 +2,7 @@
 
 class CDIGuidDeleteFacade extends CDIAbstractDataObjectFacade {
   
-  public function guidDelete() {
+  public function deleteByGUID() {
     $command = new CDIGuidDeleteCommand();
     $this->firecommand($command);
     return $command->getResult();

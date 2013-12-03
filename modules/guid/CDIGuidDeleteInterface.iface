@@ -2,6 +2,6 @@
 
 interface CDIGuidDeleteInterface extends CDITypedReceiverInterface {
 
-  function guidDelete(CDIDataObjectInterface $dataObject);
+  function deleteByGUID(CDIDataObjectInterface $dataObject);
   
 }
