@@ -274,3 +274,18 @@ CDI::addCommandModule(CDI_MODULE_URL,
     CDI_COMMAND_URL
   )
 );
+
+define('CDI_MODULE_VALIDATE', 'validate');
+define('CDI_COMMAND_VALIDATE', 'validate');
+require "modules/validate/CDIValidateCommand.class";
+require "modules/validate/CDIValidateFacade.class";
+require "modules/validate/CDIValidateInterface.iface";
+CDI::addCommandModule(CDI_MODULE_VALIDATE, 
+  new CDIDataObjectCommandDefinition(
+    'Validate Object',
+    'CDIValidateCommand',
+    'CDIValidateFacade',
+    'CDIValidateInterface',
+    CDI_COMMAND_VALIDATE
+  )
+);

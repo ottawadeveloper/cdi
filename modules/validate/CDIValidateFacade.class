@@ -1,7 +1,30 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIValidateFacade extends CDIAbstractDataObjectFacade {
+  
+  private $isValid = FALSE;
+  private $errors = array();
+  
+  private $commandExecuted = FALSE;
+  
+  private function validateObject() {
+    if (!$this->commandExecuted) {
+      $command = new CDIValidateCommand();
+      $this->fireCommand($command);
+      $this->isValid = $command->isValid();
+      $this->errors = $command->getErrors();
+      $this->commandExecuted = TRUE;
+    }
+  }
+  
+  public function isValid() {
+    $this->validateObject();
+    return $this->isValid;
+  }
+  
+  public function validationErrors() {
+    $this->validateObject();
+    return $this->errors;
+  }
+  
+}

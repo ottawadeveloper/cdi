@@ -1,7 +1,32 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIValidateCommand extends CDIAbstractDataObjectCommand {
+  
+  private $valid = FALSE;
+  private $errors = array();
+  
+  public function __construct() {
+    parent::__construct(array('CDIValidateInterface'));
+  }
+  
+  public function toString() {
+    return 'Validate';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->valid = !!$receiver->validate($this->getDataObject());
+    $this->errors = $receiver->getValidationErrors();
+    if (empty($this->errors)) {
+      $this->errors = array();
+    }
+  }
+  
+  public function getErrors() {
+    return $this->errors;
+  }
+  
+  public function isValid() {
+    return $this->valid;
+  }
+  
+}
