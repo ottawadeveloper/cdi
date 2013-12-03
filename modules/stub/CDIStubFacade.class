@@ -1,7 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIStubFacade extends CDIAbstractDataTypeFacade {
+  
+  public function stub() {
+    $command = new CDIStubCommand();
+    $this->fireCommand($command);
+    return $command->getDataObject();
+  }
+  
+}

@@ -196,12 +196,12 @@ CDI::addCommandModule(CDI_MODULE_GUID,
     'CDIGuidCommand',
     'CDIGuidFacade',
     'CDIGuidInterface',
-    CID_COMMAND_GUID
+    CDI_COMMAND_GUID
   )
 );
 
 define('CDI_MODULE_GUID_DELETE', 'guid_delete');
-define('CID_COMMAND_GUID_DELETE', 'guid_delete');
+define('CDI_COMMAND_GUID_DELETE', 'guid_delete');
 require 'modules/guid/CDIGuidDeleteCommand.class';
 require "modules/guid/CDIGuidDeleteFacade.class";
 require "modules/guid/CDIGuidDeleteInterface.iface";
@@ -211,12 +211,12 @@ CDI::addCommandModule(CDI_MODULE_GUID_DELETE,
     'CDIGuidDeleteCommand',
     'CDIGuidDeleteFacade',
     'CDIGuidDeleteInterface',
-    CID_COMMAND_GUID_DELETE
+    CDI_COMMAND_GUID_DELETE
   )
 );
 
 define('CDI_MODULE_GUID_LOAD', 'guid_load');
-define('CID_COMMAND_GUID_LOAD', 'guid_load');
+define('CDI_COMMAND_GUID_LOAD', 'guid_load');
 require 'modules/guid/CDIGuidLoadCommand.class';
 require "modules/guid/CDIGuidLoadFacade.class";
 require "modules/guid/CDIGuidLoadInterface.iface";
@@ -226,12 +226,12 @@ CDI::addCommandModule(CDI_MODULE_GUID_LOAD,
     'CDIGuidLoadCommand',
     'CDIGuidLoadFacade',
     'CDIGuidLoadInterface',
-    CID_COMMAND_GUID_LOAD
+    CDI_COMMAND_GUID_LOAD
   )
 );
 
 define('CDI_MODULE_GUID_SAVE', 'guid_save');
-define('CID_COMMAND_GUID_SAVE', 'guid_save');
+define('CDI_COMMAND_GUID_SAVE', 'guid_save');
 require 'modules/guid/CDIGuidSaveCommand.class';
 require "modules/guid/CDIGuidSaveFacade.class";
 require "modules/guid/CDIGuidSaveInterface.iface";
@@ -241,6 +241,21 @@ CDI::addCommandModule(CDI_MODULE_GUID_SAVE,
     'CDIGuidSaveCommand',
     'CDIGuidSaveFacade',
     'CDIGuidSaveInterface',
-    CID_COMMAND_GUID_SAVE
+    CDI_COMMAND_GUID_SAVE
+  )
+);
+
+define('CDI_MODULE_STUB', 'stub');
+define('CDI_COMMAND_STUB', 'stub');
+require 'modules/stub/CDIStubCommand.class';
+require 'modules/stub/CDIStubFacade.class';
+require 'modules/stub/CDIStubInterface.iface';
+CDI::addCommandModule(CDI_MODULE_STUB,
+  new CDIDataTypeCommandDefinition(
+    'Create Stub',
+    'CDIStubCommand',
+    'CDIStubFacade',
+    'CDIStubInterface',
+    CDI_COMMAND_STUB
   )
 );

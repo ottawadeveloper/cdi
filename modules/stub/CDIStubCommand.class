@@ -1,7 +1,23 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIStubCommand extends CDIAbstractDataTypeCommand {
+  
+  private $object;
+  
+  public function __construct() {
+    parent::__construct(array('CDIStubInterface'));
+  }
+  
+  public function toString() {
+    return 'Stub';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->object = $receiver->stub();
+  }
+  
+  public function getDataObject() {
+    return $this->object;
+  }
+  
+}
