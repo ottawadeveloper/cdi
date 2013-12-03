@@ -1,18 +1,28 @@
 <?php
 
+define('CDI_SAVE_NEW', 1);
+define('CDI_SAVE_UPDATED', 2);
+define('CDI_SAVE_FAILED', 0);
+
 /**
  * Interface for the save operation.
  */
 interface CDISaveInterface extends CDITypedReceiverInterface {
   
   /**
-   * Saves the object
+   * Saves the object.
+   * 
+   * This method should also update any properties of the $dataObject as
+   * necessary to reflect its new state.
    * 
    * @param CDIDataObjectInterface $dataObject
    *   The object to save.
    * 
-   * @return boolean
-   *   TRUE if the object was saved, otherwise FALSE.
+   * @return int
+   *   One of the following constants:
+   *   - CDI_SAVE_FAILED: If the object could not be saved.
+   *   - CDI_SAVE_NEW: If the object was saved and is new.
+   *   - CID_SAVE_UPDATED: If the object was saved and was updated.
    */
   function save(CDIDataObjectInterface $dataObject);
   

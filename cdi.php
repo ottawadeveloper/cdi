@@ -75,6 +75,7 @@ require "classes/CDIRegistry.class";
 
 // Load module
 define('CDI_MODULE_LOAD', 'load');
+define('CDI_COMMAND_LOAD', 'load');
 require "modules/load/CDILoadCommand.class";
 require "modules/load/CDILoadFacade.class";
 require "modules/load/CDILoadInterface.iface";
@@ -84,12 +85,13 @@ CDI::addCommandModule(CDI_MODULE_LOAD,
     'CDILoadCommand', 
     'CDILoadFacade', 
     'CDILoadInterface',
-    'load'
+    CDI_COMMAND_LOAD
   )
 );
 
 // Save module
 define('CDI_MODULE_SAVE', 'save');
+define('CDI_COMMAND_SAVE', 'save');
 require "modules/save/CDISaveCommand.class";
 require "modules/save/CDISaveFacade.class";
 require "modules/save/CDISaveInterface.iface";
@@ -99,12 +101,13 @@ CDI::addCommandModule(CDI_MODULE_SAVE,
     'CDISaveCommand', 
     'CDISaveFacade', 
     'CDISaveInterface',
-    'save'
+    CDI_COMMAND_SAVE
   )
 );
 
 // ID module
 define('CDI_MODULE_ID', 'id');
+define('CDI_COMMAND_ID', 'id');
 require "modules/id/CDIIDCommand.class";
 require "modules/id/CDIIDFacade.class";
 require "modules/id/CDIIDInterface.iface";
@@ -114,6 +117,6 @@ CDI::addCommandModule(CDI_MODULE_ID,
     'CDIIDCommand',
     'CDIIDFacade',
     'CDIIDInterface',
-    'id'
+    CDI_COMMAND_ID
   )
 );

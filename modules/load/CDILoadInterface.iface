@@ -6,10 +6,14 @@
 interface CDILoadInterface extends CDITypedReceiverInterface  {
   
   /**
-   * Loads a CDI object.
+   * Creates a CDIDataObject object for the given identifier 
+   * of the given data type and returns it.
    * 
    * @param mixed $identifier
    *   An identifier for a CDI object.
+   * 
+   * @return CDIDataObject
+   *   A data object.
    */
   function load($identifier);
   
