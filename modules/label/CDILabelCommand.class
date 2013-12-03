@@ -1,7 +1,23 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDILabelCommand extends CDIAbstractDataObjectCommand {
+  
+  private $label = '';
+  
+  public function __construct() {
+    parent::__construct(array('CDILabelInterface'));
+  }
+  
+  public function toString() {
+    return 'Label';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->label = $receiver->label($this->getDataObject());
+  }
+  
+  public function getLabel() {
+    return $this->label;
+  }
+  
+}

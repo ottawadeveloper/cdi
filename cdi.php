@@ -167,3 +167,19 @@ CDI::addCommandModule(CDI_MODULE_IMPORT,
     CDI_COMMAND_IMPORT
   )
 );  
+
+// Label module
+define('CDI_MODULE_LABEL', 'label');
+define('CDI_COMMAND_LABEL', 'label');
+require "modules/label/CDILabelCommand.class";
+require "modules/label/CDILabelFacade.class";
+require "modules/label/CDILabelInterface.iface";
+CDI::addCommandModule(CDI_MODULE_LABEL,
+  new CDIDataObjectCommandDefinition(
+    'Label',
+    'CDILabelCommand',
+    'CDILabelFacade',
+    'CDILabelInterface',
+    CDI_COMMAND_LABEL
+  )
+);

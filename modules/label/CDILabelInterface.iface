@@ -1,7 +1,7 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+interface CDILabelInterface extends CDIReceiverInterface {
+  
+  function label(CDIDataObject $dataObject);
+  
+}

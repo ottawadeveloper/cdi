@@ -1,7 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDILabelFacade extends CDIAbstractDataObjectFacade {
+  
+  public function label() {
+    $command = new CDILabelCommand();
+    $this->fireCommand($command);
+    return $command->getLabel();
+  }
+  
+}
