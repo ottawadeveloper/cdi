@@ -1,0 +1,23 @@
+<?php
+
+class CDIGetRelationshipsCommand extends CDIAbstractDataObjectCommand {
+  
+  private $relationships = array();
+  
+  public function __construct() {
+    parent::__construct('CDIGetRelationshipsInterface');
+  }
+  
+  public function toString() {
+    return 'Get Relationships';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->relationships = $receiver->getRelationships($this->getDataObject());
+  }
+  
+  public function getRelationships() {
+    return $this->relationships;
+  }
+  
+}

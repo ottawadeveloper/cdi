@@ -1,0 +1,11 @@
+<?php
+
+class CDIGetRelationshipsFacade extends CDIAbstractDataObjectFacade {
+  
+  public function getRelationships() {
+    $command = new CDIGetRelationshipsCommand();
+    $this->fireCommand($command);
+    return $command->getRelationships();
+  }
+  
+}

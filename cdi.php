@@ -262,9 +262,9 @@ CDI::addCommandModule(CDI_MODULE_STUB,
 
 define('CDI_MODULE_URL', 'url');
 define('CDI_COMMAND_URL', 'url');
-require 'modules/stub/CDICanonUrlCommand.class';
-require 'modules/stub/CDICanonUrlFacade.class';
-require 'modules/stub/CDICanonUrlInterface.iface';
+require 'modules/url/CDICanonUrlCommand.class';
+require 'modules/url/CDICanonUrlFacade.class';
+require 'modules/url/CDICanonUrlInterface.iface';
 CDI::addCommandModule(CDI_MODULE_URL,
   new CDIDataObjectCommandDefinition(
     'Get URL',
@@ -292,9 +292,9 @@ CDI::addCommandModule(CDI_MODULE_VALIDATE,
 
 define('CDI_MODULE_DISPLAY', 'display');
 define('CDI_COMMAND_DISPLAY', 'display');
-require 'module/display/CDIDisplayCommand.class';
-require 'module/display/CDIDisplayFacade.class';
-require 'module/display/CDIDisplayInterface.iface';
+require 'modules/display/CDIDisplayCommand.class';
+require 'modules/display/CDIDisplayFacade.class';
+require 'modules/display/CDIDisplayInterface.iface';
 CDI::addCommandModule(CDI_MODULE_DISPLAY,
   new CDIDataObjectCommandDefinition(
     'Display Object',
@@ -307,9 +307,9 @@ CDI::addCommandModule(CDI_MODULE_DISPLAY,
 
 define('CDI_MODULE_LIST', 'list');
 define('CDI_COMMAND_LIST', 'list');
-require 'module/list/CDIListCommand.class';
-require 'module/list/CDIListFacade.class';
-require 'module/list/CDIListInterface.iface';
+require 'modules/list/CDIListCommand.class';
+require 'modules/list/CDIListFacade.class';
+require 'modules/list/CDIListInterface.iface';
 CDI::addCommandModule(CDI_MODULE_LIST,
   new CDIDataObjectCommandDefinition(
     'List Object',
@@ -324,14 +324,14 @@ define('CDI_MODULE_LIST_PROPERTIES', 'list_properties');
 define('CDI_MODULE_GET_PROPERTY_MANAGER', 'get_property_manager');
 define('CDI_COMMAND_LIST_PROPERTIES', 'list_properties');
 define('CDI_COMMAND_GET_PROPERTY_MANAGER', 'get_property_manager');
-require 'module/properties/CDIPropertyManagerInterface.iface';
-require 'module/properties/CDIAbstractPropertyManager.class';
-require 'module/properties/CDIGetPropertyManagerCommand.class';
-require 'module/properties/CDIGetPropertyManagerFacade.class';
-require 'module/properties/CDIGetPropertyManagerInterface.iface';
-require 'module/properties/CDIListPropertiesCommand.class';
-require 'module/properties/CDIListPropertiesFacade.class';
-require 'module/properties/CDIListPropertiesInterface.iface';
+require 'modules/properties/CDIPropertyManagerInterface.iface';
+require 'modules/properties/CDIAbstractPropertyManager.class';
+require 'modules/properties/CDIGetPropertyManagerCommand.class';
+require 'modules/properties/CDIGetPropertyManagerFacade.class';
+require 'modules/properties/CDIGetPropertyManagerInterface.iface';
+require 'modules/properties/CDIListPropertiesCommand.class';
+require 'modules/properties/CDIListPropertiesFacade.class';
+require 'modules/properties/CDIListPropertiesInterface.iface';
 CDI::addCommandModule(CDI_MODULE_LIST_PROPERTIES,
   new CDIDataTypeCommandDefinition(
     'List Properties',

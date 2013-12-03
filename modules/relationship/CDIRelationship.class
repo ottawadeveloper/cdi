@@ -1,0 +1,35 @@
+<?php
+
+class CDIRelationship {
+  
+  private $dataObject;
+  private $relationshipFlags = 0x00;
+  
+  public function __construct(CDIDataObjectInterface $do, $flags = 0x00) {
+    $this->dataObject = $do;
+    $this->relationshipFlags = $flags;
+  }
+  
+  public function getDataObject() {
+    return $this->getDataObject();
+  }
+  
+  public function hasFlag($flag) {
+    return $this->relationshipFlags & $flag;
+  }
+  
+  public function isDependency() {
+    return $this->hasFlag(CDI_REL_DEPENDENCY);
+  }
+  
+  public function isComponent() {
+    return $this->hasFlag(CDI_REL_COMPONENT);
+  }
+  
+  public function touches() {
+    return $this->hasFlag(CDI_REL_TOUCHES);
+  }
+  
+  
+  
+}

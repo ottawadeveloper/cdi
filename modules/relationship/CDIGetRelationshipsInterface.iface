@@ -1,0 +1,11 @@
+<?php
+
+define('CDI_REL_DEPENDENCY', 0x01);
+define('CDI_REL_COMPONENT', 0x02);
+define('CDI_REL_TOUCHES', 0x04);
+
+interface CDIGetRelationshipsInterface extends CDITypedReceiverInterface {
+  
+  function getRelationships(CDIDataObjectInterface $dataObject);
+  
+}
