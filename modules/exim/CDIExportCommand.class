@@ -1,7 +1,26 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIExportCommand extends CDIAbstractDataObjectCommand {
+  
+  private $chunk = NULL;
+  
+  public function __construct() {
+    parent::__construct(array('CDIExportInterface'));
+  }
+  
+  public function toString() {
+    return 'Export';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $data = (array) $receiver->export($this->getDataObject());
+    if (!empty($data)) {
+      $this->chunk = new CDIExportChunk($this->getDataType(), $data);
+    }
+  }
+  
+  public function getChunk() {
+    return $this->chunk;
+  }
+  
+}

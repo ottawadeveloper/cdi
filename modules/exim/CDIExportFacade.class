@@ -1,7 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIExportFacade extends CDIAbstractDataObjectFacade {
+  
+  public function export() {
+    $command = new CDIExportCommand();
+    $this->fireCommand($command);
+    return $command->getChunk();
+  }
+  
+}

@@ -1,0 +1,37 @@
+<?php
+
+class CDIExportChunk {
+  
+  private $dataType;
+  private $exportData;
+  
+  public function __construct(CDIDataTypeInterface $dataType, array $exportData) {
+    $this->dataType = $dataType;
+    $this->exportData = $exportData;
+  }
+  
+  public function serialize() {
+    return serialize(array(
+      'datatype' => $this->dataType,
+      'exportData' => $this->exportData,
+    ));
+  }
+  
+  public function getDataType() {
+    return $this->dataType;
+  }
+  
+  public function getExportData() {
+    return $this->exportData;
+  }
+  
+  public function import() {
+    return $this->dataType->facade(CDI_COMMAND_IMPORT)->import($this);
+  }
+  
+  public static function unserialize($string) {
+    $data = unserialize($string);
+    return new CDIExportChunk($data['datatype'], $data['exportData']);
+  }
+  
+}

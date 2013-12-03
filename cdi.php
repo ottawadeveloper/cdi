@@ -120,3 +120,50 @@ CDI::addCommandModule(CDI_MODULE_ID,
     CDI_COMMAND_ID
   )
 );
+
+// Delete module
+define('CDI_MODULE_DELETE', 'delete');
+define('CDI_COMMAND_DELETE', 'delete');
+require "modules/delete/CDIDeleteCommand.class";
+require "modules/delete/CDIDeleteFacade.class";
+require "modules/delete/CDIDeleteInterface.iface";
+CDI::addCommandModule(CDI_MODULE_DELETE,
+  new CDIDataObjectCommandDefinition(
+    'Delete',
+    'CDIDeleteCommand',
+    'CDIDeleteFacade',
+    'CDIDeleteInterface',
+    CDI_COMMAND_DELETE
+  )
+);
+
+// Exim module
+define('CDI_MODULE_EXPORT', 'export');
+define('CDI_MODULE_IMPORT', 'import');
+define('CDI_COMMAND_EXPORT', 'export');
+define('CDI_COMMAND_IMPORT', 'import');
+require "modules/exim/CDIExportChunk.class";
+require "modules/exim/CDIExportCommand.class";
+require "modules/exim/CDIExportFacade.class";
+require "modules/exim/CDIExportInterface.iface";
+require "modules/exim/CDIImportCommand.class";
+require "modules/exim/CDIImportFacade.class";
+require "modules/exim/CDIImportInterface.iface";
+CDI::addCommandModule(CDI_MODULE_EXPORT,
+  new CDIDataObjectCommandDefinition(
+    'Export',
+    'CDIExportCommand',
+    'CDIExportFacade',
+    'CDIExportInterface',
+    CDI_COMMAND_EXPORT
+  )
+);
+CDI::addCommandModule(CDI_MODULE_IMPORT,
+  new CDIDataTypeCommandDefinition(
+    'Import',
+    'CDIImportCommand',
+    'CDIImportFacade',
+    'CDIImportInterface',
+    CDI_COMMAND_IMPORT
+  )
+);  
