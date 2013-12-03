@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Abstract typed command definition.
+ */
+class CDIAbstractTypedCommandDefinition extends CDIAbstractCommandDefinition {
+  
+  public function validateReceiver(CDIReceiverInterface $receiver, CDIDataInterface $data) {
+    if (!parent::validateReceiver($receiver, $data)) {
+      return FALSE;
+    }
+    if ($receiver instanceof CDITypedReceiverInterface) {
+      $dt = NULL;
+      if ($data instanceof CDIDataObjectInterface) {
+        $dt = $data->getDataType();
+      }
+      elseif ($data instanceof CDIDataTypeInterface) {
+        $dt = $data;
+      }
+      if (empty($dt)) {
+        return FALSE;
+      }
+      return $receiver->validateDataType($dt, $this->getCommandClass());
+    }
+    return FALSE;
+  }
+  
+}

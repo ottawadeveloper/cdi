@@ -3,7 +3,7 @@
 /**
  * Receiver objects must implement this to get the load functionality.
  */
-interface CDILoadInterface extends CDITypedReceiverInterface {
+interface CDILoadInterface extends CDITypedReceiverInterface  {
   
   /**
    * Loads a CDI object.

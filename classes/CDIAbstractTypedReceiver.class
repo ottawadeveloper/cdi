@@ -26,13 +26,11 @@ abstract class CDIAbstractTypedReceiver implements CDITypedReceiverInterface {
     }
   }
   
-  /**
-   * Returns the array of supported types.
-   * 
-   * @return array
-   */
   public function supportedTypes() {
     return $this->supportedTypes;
   }
   
+  public function validateDataType(CDIDataTypeInterface $dataType, $commandClass) {
+    return TRUE;
+  }
 }

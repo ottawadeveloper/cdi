@@ -25,24 +25,4 @@ class CDIDataObjectCommandDefinition extends CDIAbstractCommandDefinition {
     ), array($interface));
   }
   
-  public function validateReceiver(CDIReceiverInterface $receiver, CDIDataInterface $data) {
-    if (!parent::validateReceiver($receiver, $data)) {
-      return FALSE;
-    }
-    if ($receiver instanceof CDIAbstractTypedReceiver) {
-      $supportedTypes = $receiver->supportedTypes();
-      $type = NULL;
-      if ($data instanceof CDIDataObjectInterface) {
-        $type = $data->getDataType()->getDataTypeName();
-      }
-      else {
-        return FALSE;
-      }
-      if (in_array($type, $supportedTypes)) {
-        return TRUE;
-      }
-    }
-    return FALSE;
-  }
-  
 }

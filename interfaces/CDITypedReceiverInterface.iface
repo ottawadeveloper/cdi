@@ -15,4 +15,18 @@ interface CDITypedReceiverInterface extends CDIReceiverInterface {
    */
   function supportedTypes();
   
+  /**
+   * Allows for further, receiver-specific validation of the data type and
+   * command class, that it can process items of that type and command.
+   * 
+   * @param CDIDataTypeInterface $dataType
+   *   The data type to validate.
+   * @param string $commandClass
+   *   The command class being used.
+   * 
+   * @return boolean
+   *   TRUE if the item can be processed, otherwise false.
+   */
+  function validateDataType(CDIDataTypeInterface $dataType, $commandClass);
+  
 }

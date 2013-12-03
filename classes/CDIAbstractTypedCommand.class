@@ -26,7 +26,6 @@ abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
     else {
       $this->validInterfaces = array($validInterfaces);
     }
-    $this->valid
   }
   
   /**
@@ -68,6 +67,12 @@ abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
     if (!is_array($supportedTypes)) {
       $supportedTypes = array($supportedTypes);
     }
-    return in_array($this->getDataType()->getDataTypeName(), $supportedTypes);
+    if (!in_array($this->getDataType()->getDataTypeName(), $supportedTypes)) {
+      return FALSE;
+    }
+    if (!$receiver->validateDataType($this->getDataType(), get_class($this))) {
+      return FALSE;
+    }
+    return TRUE;
   }
 }

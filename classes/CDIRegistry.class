@@ -82,7 +82,7 @@ class CDIRegistry
   }
   
   public function registerReceiver(CDIReceiverInterface $receiver, $weight = 0) {
-    $this->receivers[get_class($receiver)] = array(
+    $this->receivers[] = array(
       'class' => $receiver,
       'weight' => $weight,
     );
