@@ -199,3 +199,33 @@ CDI::addCommandModule(CDI_MODULE_GUID,
     CID_COMMAND_GUID
   )
 );
+
+define('CDI_MODULE_GUID_DELETE', 'guid_delete');
+define('CID_COMMAND_GUID_DELETE', 'guid_delete');
+require 'modules/guid/CDIGuidDeleteCommand.class';
+require "modules/guid/CDIGuidDeleteFacade.class";
+require "modules/guid/CDIGuidDeleteInterface.iface";
+CDI::addCommandModule(CDI_MODULE_GUID_DELETE,
+  new CDIDataObjectCommandDefinition(
+    'Delete by GUID',
+    'CDIGuidDeleteCommand',
+    'CDIGuidDeleteFacade',
+    'CDIGuidDeleteInterface',
+    CID_COMMAND_GUID_DELETE
+  )
+);
+
+define('CDI_MODULE_GUID_LOAD', 'guid_load');
+define('CID_COMMAND_GUID_LOAD', 'guid_load');
+require 'modules/guid/CDIGuidLoadCommand.class';
+require "modules/guid/CDIGuidLoadFacade.class";
+require "modules/guid/CDIGuidLoadInterface.iface";
+CDI::addCommandModule(CDI_MODULE_GUID_LOAD,
+  new CDIDataObjectCommandDefinition(
+    'Load by GUID',
+    'CDIGuidLoadCommand',
+    'CDIGuidLoadFacade',
+    'CDIGuidLoadInterface',
+    CID_COMMAND_GUID_LOAD
+  )
+);
