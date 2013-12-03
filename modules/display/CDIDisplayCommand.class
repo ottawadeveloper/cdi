@@ -1,7 +1,40 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+define('CDI_DISPLAY_HTML', 'html');
+
+class CDIDisplayCommand extends CDIAbstractDataObjectCommand {
+  
+  private $display = '';
+  private $mode = CDI_DISPLAY_HTML;
+  
+  public function __construct($displayMode = CDI_DISPLAY_HTML) {
+    parent::__construct(array('CDIDisplayInterface'));
+    $this->mode = $displayMode;
+  }
+  
+  public function validReceiver(CDIReceiverInterface $receiver) {
+    if (!parent::validReceiver($receiver)) {
+      return FALSE;
+    }
+    // We additionally validate the display mode, so that adding new renderers
+    // for different display modes is not a problem.
+    if ($receiver instanceof CDIDisplayInterface) {
+      return $receiver->supportsDisplayMode($this->mode);
+    }
+    // If we can't validate the display mode, then its not a valid receiver.
+    return FALSE;
+  }
+  
+  public function toString() {
+    return 'Display';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->display = $receiver->display($this->getDataObject(), $this->mode);
+  }
+  
+  public function getDisplay() {
+    return $this->display;
+  }
+  
+}

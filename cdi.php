@@ -289,3 +289,18 @@ CDI::addCommandModule(CDI_MODULE_VALIDATE,
     CDI_COMMAND_VALIDATE
   )
 );
+
+define('CDI_MODULE_DISPLAY', 'display');
+define('CDI_COMMAND_DISPLAY', 'display');
+require 'module/display/CDIDisplayCommand.class';
+require 'module/display/CDIDisplayFacade.class';
+require 'module/display/CDIDisplayInterface.iface';
+CDI::addCommandModule(CDI_MODULE_DISPLAY,
+  new CDIDataObjectCommandDefinition(
+    'Display Object',
+    'CDIDisplayCommand',
+    'CDIDisplayFacade',
+    'CDIDisplayInterface',
+    CDI_COMMAND_DISPLAY
+  )
+);
