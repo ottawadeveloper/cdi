@@ -1,0 +1,18 @@
+<?php
+
+interface CDIPropertyManagerInterface {
+  
+  function setDataObject(CDIDataObjectInterface $dataObject);
+  function getDataObject();
+  
+  function getLabel();
+  function getMachineName();
+  
+  function setValue($lang, $value);
+  function getValue($lang);
+  function validateValue($lang, $value);
+  
+  function getLanguages();
+  function isMultiValue();
+  
+}

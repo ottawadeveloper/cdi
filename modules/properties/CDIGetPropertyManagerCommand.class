@@ -1,2 +1,26 @@
 <?php
 
+class CDIGetPropertyManagerCommand extends CDIAbstractDataTypeCommand {
+  
+  private $propertyKey = '';
+  
+  private $manager = NULL;
+  
+  public function __construct($propertyKey) {
+    parent::__construct(array('CDIGetPropertyManagerInterface'));
+    $this->propertyKey = $propertyKey;
+  }
+  
+  public function toString() {
+    return 'Get Property Manager';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->manager = $receiver->getPropertyManager($propertyKey);
+  }
+  
+  public function getManager() {
+    return $this->manager;
+  }
+  
+}

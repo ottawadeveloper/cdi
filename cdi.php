@@ -319,3 +319,34 @@ CDI::addCommandModule(CDI_MODULE_LIST,
     CDI_COMMAND_LIST
   )
 );
+
+define('CDI_MODULE_LIST_PROPERTIES', 'list_properties');
+define('CDI_MODULE_GET_PROPERTY_MANAGER', 'get_property_manager');
+define('CDI_COMMAND_LIST_PROPERTIES', 'list_properties');
+define('CDI_COMMAND_GET_PROPERTY_MANAGER', 'get_property_manager');
+require 'module/properties/CDIPropertyManagerInterface.iface';
+require 'module/properties/CDIAbstractPropertyManager.class';
+require 'module/properties/CDIGetPropertyManagerCommand.class';
+require 'module/properties/CDIGetPropertyManagerFacade.class';
+require 'module/properties/CDIGetPropertyManagerInterface.iface';
+require 'module/properties/CDIListPropertiesCommand.class';
+require 'module/properties/CDIListPropertiesFacade.class';
+require 'module/properties/CDIListPropertiesInterface.iface';
+CDI::addCommandModule(CDI_MODULE_LIST_PROPERTIES,
+  new CDIDataTypeCommandDefinition(
+    'List Properties',
+    'CDIListPropertiesCommand',
+    'CDIListPropertiesFacade',
+    'CDIListPropertiesInterface',
+    CDI_COMMAND_LIST_PROPERTIES
+  )
+);
+CDI::addCommandModule(CDI_MODULE_GET_PROPERTY_MANAGER,
+  new CDIDataTypeCommandDefinition(
+    'Get Property Manager',
+    'CDIGetPropertyManagerCommand',
+    'CDIGetPropertyManagerFacade',
+    'CDIGetPropertyManagerInterface',
+    CDI_COMMAND_GET_PROPERTY_MANAGER
+  )
+);

@@ -1,7 +1,23 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDIListPropertiesCommand extends CDIAbstractDataTypeCommand {
+  
+  private $properties = array();
+  
+  public function __construct() {
+    parent::_construct(array('CDIListPropertiesInterface'));
+  }
+  
+  public function toString() {
+    return 'List Properties';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->properties = $receiver->listProperties();
+  }
+  
+  public function getProperties() {
+    return $this->properties;
+  }
+  
+}

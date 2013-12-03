@@ -1,0 +1,52 @@
+<?php
+
+abstract class CDIAbstractPropertyManager implements CDIPropertyManagerInterface {
+  
+  private $dataObject;
+  
+  private $machineName = '';
+  private $label = '';
+  private $supportedLanguages = array('und');
+  private $isMultiValue = FALSE;
+  
+  public function __construct($machineName, $label, $language = NULL, $multiValue = FALSE) {
+    $this->machineName = $machineName;
+    $this->label = $label;
+    if (!empty($language)) {
+      if (!is_array($language)) {
+        $language = array($language);
+      }
+      $this->supportedLanguages = $language;
+    }
+    $this->isMultiValue = !!$multiValue;
+  }
+  
+  public function getLanguages() {
+    return $this->supportedLanguages;
+  }
+  
+  public function isMultiValue() {
+    return $this->isMultiValue;
+  }
+  
+  public function getLabel() {
+    return $this->label;
+  }
+  
+  public function getMachineName() {
+    return $this->machineName;
+  }
+  
+  public function setDataObject(CDIDataObjectInterface $dataObject) {
+    $this->dataObject = $dataObject;
+  }
+  
+  public function getDataObject() {
+    return $this->dataObject;
+  }
+  
+  public function validateValue($lang, $value) {
+    return TRUE;
+  }
+  
+}
