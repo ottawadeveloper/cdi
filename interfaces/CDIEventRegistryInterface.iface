@@ -1,0 +1,9 @@
+<?php
+
+interface CDIEventRegistryInterface {
+  
+  function fireEvent(CDIEventInterface $event);
+  
+  function registerEventHandler(CDIEventHandlerInterface $handler, $weight = 0);
+  
+}

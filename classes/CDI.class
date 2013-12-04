@@ -18,6 +18,13 @@ abstract class CDI {
   private static $registry = NULL;
   
   /**
+   * The registry object that stores event handlers.
+   * 
+   * @var CDIEventRegistryInterface
+   */
+  private static $eventRegistry = NULL;
+  
+  /**
    * The data type registry object that stores data types.
    * 
    * @var CDIDataTypeRegistryInterface
@@ -59,6 +66,43 @@ abstract class CDI {
    */
   private static $commandRegistryClass = 'CDIRegistry';
   
+  /**
+   * Stores the class name of the event registry class.
+   * 
+   * @var string
+   */
+  private static $eventRegistryClass = 'CDIRegistry';
+  
+  /**
+   * Sets the registry class.
+   * 
+   * @param string|object $class
+   *   The new registry class, or an object to use as the registry class. Must 
+   *   implement CDIRegistryInterface in either case.
+   * 
+   * @throws CDIException
+   *   If $class is not an instance of CDIRegistryInterface or the name of a
+   *   class that is.
+   */
+  public static function setEventRegistryClass($class) {
+    if (!empty(self::$eventRegistry)) {
+      throw new CDIException('CDI-1004', 'The event registry has already been built');
+    }
+    if (is_object($class)) {
+      $reflect = new ReflectionClass(get_class($class));
+      if ($reflect->implementsInterface('CDIEventRegistryInterface')) {
+        self::$eventRegistryClass = get_class($class);
+        self::$eventRegistry = $class;
+      }
+    }
+    else {
+      $reflect = new ReflectionClass($class);
+      if ($reflect->implementsInterface('CDIEventRegistryInterface')) {
+        self::$eventRegistryClass = $class;
+      }
+    }
+  }    
+      
   /**
    * Sets the registry class.
    * 
@@ -163,6 +207,23 @@ abstract class CDI {
       self::$registry = new $class();
     }
     return self::$registry;
+  }
+  
+  /**
+   * Returns the event registry.
+   * 
+   * Singleton pattern.
+   * 
+   * @return CDIEventRegistryInterface
+   *   The event registry object.
+   * 
+   */
+  public static function getEventRegistry() {
+    if (empty(self::$eventRegistry)) {
+      $class = self::$eventRegistryClass;
+      self::$eventRegistry = new $class();
+    }
+    return self::$eventRegistry;
   }
   
   /**

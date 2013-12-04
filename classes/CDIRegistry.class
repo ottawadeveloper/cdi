@@ -6,7 +6,8 @@
 class CDIRegistry 
     implements CDIRegistryInterface, 
                CDIDataTypeRegistryInterface,
-               CDICommandModuleRegistryInterface {
+               CDICommandModuleRegistryInterface,
+               CDIEventRegistryInterface {
   
   /**
    * Sorts an array of receivers.
@@ -51,6 +52,20 @@ class CDIRegistry
    */
   private $commands = array();
   
+  /**
+   * An array of event handlers.
+   * 
+   * @var array
+   */
+  private $handlers = array();
+  
+  /**
+   * Whether or not the handlers are sorted.
+   * 
+   * @var boolean
+   */
+  private $sortedHandlers = TRUE;
+  
   public function findFacadeFromShortcut($facadeType) {
     foreach ($this->commands as $command) {
       if ($facadeType == $command->getShortcut()) {
@@ -58,6 +73,14 @@ class CDIRegistry
       }
     }
     return NULL;
+  }
+  
+  public function registerEventHandler(CDIEventHandlerInterface $handler, $weight = 0) {
+    $this->handlers[] = array(
+      'handler' => $handler,
+      'weight' => $weight
+    );
+    $this->sortedHandlers = FALSE;
   }
   
   public function registerCommandModule(CDICommandModuleDefinitionInterface $command) {
@@ -104,6 +127,25 @@ class CDIRegistry
     throw new CDIException('CDI-1000', 'Receiver not found for command !command', array(
       '!command' => $command->toString(),
     ));
+  }
+  
+  public function fireEvent(CDIEventInterface $event) {
+    if (!$this->sortedHandlers) {
+      uasort($this->handlers, array('CDIRegistry', 'compareReceiverEntries'));
+      array_reverse($this->handlers);
+      $this->sortedHandlers = TRUE;
+    }
+    $found = 0;
+    foreach ($this->handlers as $handler) {
+      if ($event->verifyHandler($handler['handler'])) {
+        $event->executeEventHandler($handler['handler']);
+        $found++;
+        if (!$event->checkContinue()) {
+          return $found;
+        }
+      }
+    }
+    return $found;
   }
   
   public function checkFacadeSupport(CDIFacadeInterface $facade, CDIDataInterface $data) {

@@ -1,0 +1,35 @@
+<?php
+
+abstract class CDIAbstractEvent implements CDIEventInterface {
+  
+  private $handlerInterfaces = array();
+  private $continue = TRUE;
+  
+  public function __construct($validEventInterfaces, $defaultContinue = TRUE) {
+    if (!is_array($validEventInterfaces)) {
+      $this->handlerInterfaces = array($validEventInterfaces);
+    }
+    else {
+      $this->handlerInterfaces = $validEventInterfaces;
+    }
+    $this->continue = $defaultContinue;
+  }
+  
+  public function stopPropagation() {
+    $this->continue = FALSE;
+  }
+  
+  public function verifyHandler(CDIEventHandlerInterface $handler) {
+    foreach ($this->handlerInterfaces as $interface) {
+      if ($handler instanceof $interface) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+  
+  public function checkContinue() {
+    return $this->continue;
+  }
+  
+}
