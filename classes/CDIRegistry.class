@@ -121,7 +121,9 @@ class CDIRegistry
     foreach ($this->receivers as $receiver) {
       if ($command->validReceiver($receiver['class'])) {
         $command->executeAction($receiver['class']);
-        return;
+        if (!$command->checkContinue()) {
+          return;
+        }
       }
     }
     throw new CDIException('CDI-1000', 'Receiver not found for command !command', array(

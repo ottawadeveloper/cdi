@@ -33,4 +33,10 @@ interface CDICommandInterface {
    */
   function toString();
   
+  function checkContinue();
+  
+  function stopPropagation();
+  
+  function continuePropagation();
+  
 }

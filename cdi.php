@@ -43,6 +43,10 @@ require "interfaces/CDIDataTypeRegistryInterface.iface";
 
 require "interfaces/CDICommandModuleDefinitionInterface.iface";
 
+require "interfaces/CDIEventRegistryInterface.iface";
+require "interfaces/CDIEventInterface.iface";
+require "interfaces/CDIEventHandlerInterface.iface";
+
 require "classes/CDI.class";
 
 require "classes/CDIException.class";
@@ -66,6 +70,8 @@ require "classes/CDIDataObject.class";
 require "classes/CDIDataType.class";
 
 require "classes/CDIRegistry.class";
+
+require "classes/CDIAbstractEvent.class";
 
 
 

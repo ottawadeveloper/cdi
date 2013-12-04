@@ -12,6 +12,8 @@ abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
    */
   private $validInterfaces = array();
   
+  private $continue = FALSE;
+  
   /**
    * Constructor.
    * 
@@ -19,13 +21,26 @@ abstract class CDIAbstractTypedCommand implements CDITypedCommandInterface {
    *   The interface name that the receiver must match in order to be a valid
    *   receiver OR an array of such names.
    */
-  public function __construct($validInterfaces) {
+  public function __construct($validInterfaces, $multiple = FALSE) {
     if (is_array($validInterfaces)) {
       $this->validInterfaces = $validInterfaces;
     }
     else {
       $this->validInterfaces = array($validInterfaces);
     }
+    $this->continue = $multiple;
+  }
+  
+  public function continuePropagation() {
+    $this->continue = TRUE;
+  }
+  
+  public function stopPropagation() {
+    $this->continue = FALSE;
+  }
+  
+  public function checkContinue() {
+    return $this->continue;
   }
   
   /**
