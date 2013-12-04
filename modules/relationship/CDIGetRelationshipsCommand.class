@@ -5,7 +5,7 @@ class CDIGetRelationshipsCommand extends CDIAbstractDataObjectCommand {
   private $relationships = array();
   
   public function __construct() {
-    parent::__construct('CDIGetRelationshipsInterface');
+    parent::__construct('CDIGetRelationshipsInterface', TRUE);
   }
   
   public function toString() {
@@ -13,7 +13,12 @@ class CDIGetRelationshipsCommand extends CDIAbstractDataObjectCommand {
   }
   
   public function executeAction(CDIReceiverInterface $receiver) {
-    $this->relationships = $receiver->getRelationships($this->getDataObject());
+    $newRelationships = $receiver->getRelationships($this->getDataObject(), $this);
+    $this->relationships = array_merge($this->relationships, $newRelationships);
+  }
+  
+  public function addRelationship(CDIRelationship $rel) {
+    $this->relationships[] = $rel;
   }
   
   public function getRelationships() {
