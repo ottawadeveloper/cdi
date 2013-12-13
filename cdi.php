@@ -317,12 +317,28 @@ require 'modules/list/CDIListCommand.class';
 require 'modules/list/CDIListFacade.class';
 require 'modules/list/CDIListInterface.iface';
 CDI::addCommandModule(CDI_MODULE_LIST,
-  new CDIDataObjectCommandDefinition(
-    'List Object',
+  new CDIDataTypeCommandDefinition(
+    'List',
     'CDIListCommand',
     'CDIListFacade',
     'CDIListInterface',
     CDI_COMMAND_LIST
+  )
+);
+
+
+define('CDI_MODULE_SIMPLE_LIST', 'simple_list');
+define('CDI_COMMAND_SIMPLE_LIST', 'simple_list');
+require 'modules/list/CDISimpleListCommand.class';
+require 'modules/list/CDISimpleListFacade.class';
+require 'modules/list/CDISimpleListInterface.iface';
+CDI::addCommandModule(CDI_MODULE_SIMPLE_LIST,
+  new CDIDataTypeCommandDefinition(
+    'Simple List',
+    'CDISimpleListCommand',
+    'CDISimpleListFacade',
+    'CDISimpleListInterface',
+    CDI_COMMAND_SIMPLE_LIST
   )
 );
 

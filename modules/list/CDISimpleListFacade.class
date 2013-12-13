@@ -1,7 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDISimpleListFacade extends CDIAbstractDataTypeFacade {
+  
+  public function listSimpleItems($size = NULL, $page = NULL) {
+    $command = new CDISimpleListCommand($size, $page);
+    $this->fireCommand($command);
+    return $command->getList();
+  }
+  
+}

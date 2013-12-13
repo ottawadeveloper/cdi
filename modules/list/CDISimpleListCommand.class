@@ -1,7 +1,29 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+class CDISimpleListCommand extends CDIAbstractDataTypeCommand {
+  
+  private $list = array();
+  private $pageNum = NULL;
+  private $listSize = NULL;
+  
+  public function __construct($listsize = NULL, $pagenum = NULL) {
+    parent::__construct(array('CDISimpleListInterface'));
+    $this->pageNum = $pagenum;
+    $this->listSize = $listsize;
+  }
+  
+  public function toString() {
+    return 'Simple List';
+  }
+  
+  public function executeAction(CDIReceiverInterface $receiver) {
+    $this->list = $receiver->listSimpleItems($this->pageNum, $this->listSize);
+  }
+  
+  public function getList() {
+    return $this->list;
+  }
+  
+  
+  
+}
