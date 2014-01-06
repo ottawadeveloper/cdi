@@ -26,6 +26,8 @@ abstract class CDIAbstractData implements CDIDataInterface {
    *   The object that we will wrap for the facade.
    * @param boolean $useShortcut
    *   If FALSE, the shortcut name step is skipped (saving time).
+   * @param boolean $useMethodLookup
+   *   If FALSE, the method step is skipped (saving time).
    * 
    * @return CDIFacadeInterface
    *   An implementation of CDIFacadeInterface that is valid for the given
@@ -34,14 +36,23 @@ abstract class CDIAbstractData implements CDIDataInterface {
    * @throws CDIException
    *   If one of the conditions fails.
    */
-  function buildFacade($facadeType, $facadeInterface, $wrappedObject, $useShortcut = TRUE) {
-    if ($useShortcut) {
+  protected function buildFacade($facadeType, $facadeInterface, $wrappedObject, $useShortcut = TRUE, $useMethodLookup = TRUE) {
+    $exists = class_exists($facadeType);
+    if ($useShortcut && (!$exists)) {
       $actualType = CDI::getCommandRegistry()->findFacadeFromShortcut($facadeType);
       if (!empty($actualType)) {
         $facadeType = $actualType;
+        $exists = class_exists($facadeType);
       }
     }
-    if (class_exists($facadeType)) {
+    if ($useMethodLookup && (!$exists)) {
+      $actualType = CDI::getCommandRegistry()->findFacadeFromMethod($facadeType);
+      if (!empty($actualType)) {
+        $facadeType = $actualType;
+        $exists = class_exists($facadeType);
+      }
+    }
+    if ($exists) {
       $implements = class_implements($facadeType);
       if (!is_array($facadeInterface)) {
         $facadeInterface = array($facadeInterface);
@@ -61,6 +72,26 @@ abstract class CDIAbstractData implements CDIDataInterface {
   }
   
   /**
+   * Executes a generic command.
+   * 
+   * This uses the command registry to lookup the appropriate facade for the
+   * specified method. Designed for use by the magic __call() method.
+   * 
+   * @param string $methodName
+   *   Name of the method.
+   * @param array $args
+   *   Array of arguments for $methodName.
+   * 
+   * @return mixed
+   *   Appropriate return value for the function.
+   */
+  public function executeMethod($methodName, array $args = array()) {
+    $facade = CDI::getCommandRegistry()->findFacadeFromMethod($methodName);
+    $wrapper = $this->facade($facade);
+    return call_user_func_array(array($wrapper, $methodName), $args);
+  }
+  
+  /**
    * Fires a command, regardless of its type, up to the registry.
    * 
    * Implementing interfaces should use this to fire commands, so that they
@@ -69,7 +100,7 @@ abstract class CDIAbstractData implements CDIDataInterface {
    * @param CDICommandInterface $command
    *   The command to fire.
    */
-  function fireGenericCommand(CDICommandInterface $command) {
+  protected function fireGenericCommand(CDICommandInterface $command) {
     CDI::getRegistry()->fireCommand($command);
   }
   

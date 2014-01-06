@@ -14,6 +14,13 @@ abstract class CDIAbstractCommandDefinition implements CDICommandModuleDefinitio
   private $facadeClassName;
   
   /**
+   * An array of methods used with this command.
+   * 
+   * @var array $methods
+   */
+  private $methods = array();
+  
+  /**
    * The name of the command class.
    * 
    * @var string $commandClassName
@@ -65,18 +72,26 @@ abstract class CDIAbstractCommandDefinition implements CDICommandModuleDefinitio
    *   The data classes that this command definition accepts.
    * @param array $receiverClasses
    *   The receiver classes that this command definition accepts.
+   * @param array $methods
+   *   The methods that this command definition will add when used as a 
+   *   facade.
    */
-  public function __construct($label, $shortcut, $commandClass, $facadeClass, array $dataClasses = array(), array $receiverClasses = array()) {
+  public function __construct($label, $shortcut, $commandClass, $facadeClass, array $dataClasses = array(), array $receiverClasses = array(), array $methods = array()) {
     $this->commandLabel = $label;
     $this->shortcut = $shortcut;
     $this->commandClassName = $commandClass;
     $this->facadeClassName = $facadeClass;
     $this->dataClasses = $dataClasses;
     $this->receiverClasses = $receiverClasses;
+    $this->methods = $methods;
   }
   
   public function getShortcut() {
     return $this->shortcut;
+  }
+  
+  public function getMethods() {
+    return $this->methods;
   }
   
   public function getFacadeClass() {

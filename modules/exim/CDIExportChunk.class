@@ -1,6 +1,6 @@
 <?php
 
-class CDIExportChunk {
+class CDIExportChunk implements Serializable {
   
   private $dataType;
   private $exportData;
@@ -10,11 +10,21 @@ class CDIExportChunk {
     $this->exportData = $exportData;
   }
   
+  public function pack() {
+    return $this->serialize();
+  }
+  
   public function serialize() {
     return serialize(array(
       'datatype' => $this->dataType,
       'exportData' => $this->exportData,
     ));
+  }
+  
+  public function unserialize($data) {
+    $unpacked = unserialize($data);
+    $this->dataType = $unpacked['datatype'];
+    $this->exportData = $unpacked['exportData'];
   }
   
   public function getDataType() {
@@ -29,7 +39,7 @@ class CDIExportChunk {
     return $this->dataType->facade(CDI_COMMAND_IMPORT)->import($this);
   }
   
-  public static function unserialize($string) {
+  public static function unpack($string) {
     $data = unserialize($string);
     return new CDIExportChunk($data['datatype'], $data['exportData']);
   }

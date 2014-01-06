@@ -18,11 +18,16 @@ class CDIDataObjectCommandDefinition extends CDIAbstractCommandDefinition {
    *   The classname of the interface.
    * @param string $shortcut
    *   A shortcut string for $facadeClass.
+   * @param array $methods
+   *   An array of methods defined by $facadeClass.
    */
-  public function __construct($label, $commandClass, $facadeClass, $interface, $shortcut) {
+  public function __construct($label, $commandClass, $facadeClass, $interface, $shortcut, $methods = array()) {
+    if (!is_array($methods)) {
+      $methods = array($methods);
+    }
     parent::__construct($label, $shortcut, $commandClass, $facadeClass, array(
       'CDIDataObjectInterface'
-    ), array($interface));
+    ), array($interface), $methods);
   }
   
 }

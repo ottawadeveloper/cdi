@@ -63,4 +63,17 @@ interface CDICommandModuleRegistryInterface {
    */
   function findFacadeFromShortcut($facadeShortcut);
   
+  /**
+   * Checks to see if there is a command module registered with the given
+   * $methodName as a method. If so, returns the facade class from that 
+   * command module.
+   * 
+   * @param string $methodName
+   *   The name of a method to lookup
+   * 
+   * @return string
+   *   The classname of a class that implements CDIFacadeInterface.
+   */
+  function findFacadeFromMethod($methodName);
+  
 }

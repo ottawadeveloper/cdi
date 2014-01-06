@@ -75,6 +75,15 @@ class CDIRegistry
     return NULL;
   }
   
+  public function findFacadeFromMethod($methodName) {
+    foreach ($this->commands as $command) {
+      if (in_array($methodName, $command->getMethods())) {
+        return $command->getFacadeClass();
+      }
+    }
+    return NULL;
+  }
+  
   public function registerEventHandler(CDIEventHandlerInterface $handler, $weight = 0) {
     $this->handlers[] = array(
       'handler' => $handler,

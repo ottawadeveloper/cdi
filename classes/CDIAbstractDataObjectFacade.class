@@ -53,4 +53,32 @@ abstract class CDIAbstractDataObjectFacade extends CDIAbstractData implements CD
     return CDI::getCommandRegistry()->checkFacadeSupport($this, $this->object);
   }
   
+  /**
+   * This magic method allows the use of facades without explicitly calling
+   * facade(). 
+   * 
+   * Essentially, whenever a method is called on this object that is not 
+   * recognized, the list of facades is checked for one that provides the 
+   * given method. If found, this object is facaded into the appropriate facade
+   * and then the method is called on that facade, with all the provided 
+   * arguments.
+   * 
+   * While using facade() is clearer, this allows for a quick shortcut method
+   * for lazy programmers if they want to use it.
+   * 
+   * Note that this function throws the same exceptions as facade() if there
+   * is no supported facade for the given function name.
+   * 
+   * @param string $name
+   *   The name of the function called.
+   * @param array $arguments
+   *   An array of arguments.
+   * 
+   * @return mixed
+   *   Appropriate return value for the function.
+   */
+  public function __call($name, $arguments) {
+    return parent::executeMethod($name, $arguments);
+  }
+  
 }

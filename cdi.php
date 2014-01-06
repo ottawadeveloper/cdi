@@ -91,7 +91,8 @@ CDI::addCommandModule(CDI_MODULE_LOAD,
     'CDILoadCommand', 
     'CDILoadFacade', 
     'CDILoadInterface',
-    CDI_COMMAND_LOAD
+    CDI_COMMAND_LOAD,
+    'load'
   )
 );
 
@@ -107,7 +108,8 @@ CDI::addCommandModule(CDI_MODULE_SAVE,
     'CDISaveCommand', 
     'CDISaveFacade', 
     'CDISaveInterface',
-    CDI_COMMAND_SAVE
+    CDI_COMMAND_SAVE,
+    'save'
   )
 );
 
@@ -123,7 +125,8 @@ CDI::addCommandModule(CDI_MODULE_ID,
     'CDIIDCommand',
     'CDIIDFacade',
     'CDIIDInterface',
-    CDI_COMMAND_ID
+    CDI_COMMAND_ID,
+    'id'
   )
 );
 
@@ -139,7 +142,8 @@ CDI::addCommandModule(CDI_MODULE_DELETE,
     'CDIDeleteCommand',
     'CDIDeleteFacade',
     'CDIDeleteInterface',
-    CDI_COMMAND_DELETE
+    CDI_COMMAND_DELETE,
+    'delete'
   )
 );
 
@@ -161,7 +165,8 @@ CDI::addCommandModule(CDI_MODULE_EXPORT,
     'CDIExportCommand',
     'CDIExportFacade',
     'CDIExportInterface',
-    CDI_COMMAND_EXPORT
+    CDI_COMMAND_EXPORT,
+    'export'
   )
 );
 CDI::addCommandModule(CDI_MODULE_IMPORT,
@@ -170,7 +175,8 @@ CDI::addCommandModule(CDI_MODULE_IMPORT,
     'CDIImportCommand',
     'CDIImportFacade',
     'CDIImportInterface',
-    CDI_COMMAND_IMPORT
+    CDI_COMMAND_IMPORT,
+    'import'
   )
 );  
 
@@ -186,7 +192,8 @@ CDI::addCommandModule(CDI_MODULE_LABEL,
     'CDILabelCommand',
     'CDILabelFacade',
     'CDILabelInterface',
-    CDI_COMMAND_LABEL
+    CDI_COMMAND_LABEL,
+    'label'
   )
 );
 
@@ -202,7 +209,8 @@ CDI::addCommandModule(CDI_MODULE_GUID,
     'CDIGuidCommand',
     'CDIGuidFacade',
     'CDIGuidInterface',
-    CDI_COMMAND_GUID
+    CDI_COMMAND_GUID,
+    'guid'
   )
 );
 
@@ -217,7 +225,8 @@ CDI::addCommandModule(CDI_MODULE_GUID_DELETE,
     'CDIGuidDeleteCommand',
     'CDIGuidDeleteFacade',
     'CDIGuidDeleteInterface',
-    CDI_COMMAND_GUID_DELETE
+    CDI_COMMAND_GUID_DELETE,
+    'deleteByGUID'
   )
 );
 
@@ -232,7 +241,8 @@ CDI::addCommandModule(CDI_MODULE_GUID_LOAD,
     'CDIGuidLoadCommand',
     'CDIGuidLoadFacade',
     'CDIGuidLoadInterface',
-    CDI_COMMAND_GUID_LOAD
+    CDI_COMMAND_GUID_LOAD,
+    'loadByGUID'
   )
 );
 
@@ -247,7 +257,8 @@ CDI::addCommandModule(CDI_MODULE_GUID_SAVE,
     'CDIGuidSaveCommand',
     'CDIGuidSaveFacade',
     'CDIGuidSaveInterface',
-    CDI_COMMAND_GUID_SAVE
+    CDI_COMMAND_GUID_SAVE,
+    'saveByGUID'
   )
 );
 
@@ -262,7 +273,8 @@ CDI::addCommandModule(CDI_MODULE_STUB,
     'CDIStubCommand',
     'CDIStubFacade',
     'CDIStubInterface',
-    CDI_COMMAND_STUB
+    CDI_COMMAND_STUB,
+    'stub'
   )
 );
 
@@ -277,7 +289,8 @@ CDI::addCommandModule(CDI_MODULE_URL,
     'CDICanonUrlCommand',
     'CDICanonUrlFacade',
     'CDICanonUrlInterface',
-    CDI_COMMAND_URL
+    CDI_COMMAND_URL,
+    'url'
   )
 );
 
@@ -292,7 +305,8 @@ CDI::addCommandModule(CDI_MODULE_VALIDATE,
     'CDIValidateCommand',
     'CDIValidateFacade',
     'CDIValidateInterface',
-    CDI_COMMAND_VALIDATE
+    CDI_COMMAND_VALIDATE,
+    'validate'
   )
 );
 
@@ -307,7 +321,8 @@ CDI::addCommandModule(CDI_MODULE_DISPLAY,
     'CDIDisplayCommand',
     'CDIDisplayFacade',
     'CDIDisplayInterface',
-    CDI_COMMAND_DISPLAY
+    CDI_COMMAND_DISPLAY,
+    'display'
   )
 );
 
@@ -322,7 +337,8 @@ CDI::addCommandModule(CDI_MODULE_LIST,
     'CDIListCommand',
     'CDIListFacade',
     'CDIListInterface',
-    CDI_COMMAND_LIST
+    CDI_COMMAND_LIST,
+    'listItems'
   )
 );
 
@@ -338,7 +354,8 @@ CDI::addCommandModule(CDI_MODULE_SIMPLE_LIST,
     'CDISimpleListCommand',
     'CDISimpleListFacade',
     'CDISimpleListInterface',
-    CDI_COMMAND_SIMPLE_LIST
+    CDI_COMMAND_SIMPLE_LIST,
+    'listSimpleItems'
   )
 );
 
@@ -360,7 +377,8 @@ CDI::addCommandModule(CDI_MODULE_LIST_PROPERTIES,
     'CDIListPropertiesCommand',
     'CDIListPropertiesFacade',
     'CDIListPropertiesInterface',
-    CDI_COMMAND_LIST_PROPERTIES
+    CDI_COMMAND_LIST_PROPERTIES,
+    'listProperties'
   )
 );
 CDI::addCommandModule(CDI_MODULE_GET_PROPERTY_MANAGER,
@@ -369,6 +387,24 @@ CDI::addCommandModule(CDI_MODULE_GET_PROPERTY_MANAGER,
     'CDIGetPropertyManagerCommand',
     'CDIGetPropertyManagerFacade',
     'CDIGetPropertyManagerInterface',
-    CDI_COMMAND_GET_PROPERTY_MANAGER
+    CDI_COMMAND_GET_PROPERTY_MANAGER,
+    'getPropertyManager'
+  )
+);
+
+define('CDI_COMMAND_GET_RELATIONSHIPS', 'get_relationships');
+define('CDI_MODULE_GET_RELATIONSHIPS', 'get_relationships');
+require 'modules/relationship/CDIRelationship.class';
+require 'modules/relationship/CDIGetRelationshipsCommand.class';
+require 'modules/relationship/CDIGetRelationshipsFacade.class';
+require 'modules/relationship/CDIGetRelationshipsInterface.iface';
+CDI::addCommandModule(CDI_MODULE_GET_RELATIONSHIPS,
+  new CDIDataObjectCommandDefinition(
+    'Get Relationships',
+    'CDIGetRelationshipsCommand',
+    'CDIGetRelationshipsFacade',
+    'CDIGetRelationshipsInterface',
+    CDI_COMMAND_GET_RELATIONSHIPS,
+    'getRelationships'
   )
 );

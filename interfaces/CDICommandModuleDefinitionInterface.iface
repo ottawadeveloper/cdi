@@ -27,6 +27,17 @@ interface CDICommandModuleDefinitionInterface {
   function getShortcut();
   
   /**
+   * Returns the methods provided by this command.
+   * 
+   * This is an array of methods that can be used with this command.
+   * 
+   * @return array
+   *   An array of strings, each of which is a valid method name to use with
+   *   this command.
+   */
+  function getMethods();
+  
+  /**
    * Returns the human-readable label for this command module.
    * 
    * @return string
