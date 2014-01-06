@@ -2,8 +2,8 @@
 
 class CDIStubFacade extends CDIAbstractDataTypeFacade {
   
-  public function stub() {
-    $command = new CDIStubCommand();
+  public function stub($defaults = array()) {
+    $command = new CDIStubCommand($defaults);
     $this->fireCommand($command);
     return $command->getDataObject();
   }

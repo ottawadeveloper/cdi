@@ -2,6 +2,6 @@
 
 interface CDIStubInterface extends CDITypedReceiverInterface {
   
-  function stub();
+  function stub($initialValues = array());
   
 }

@@ -4,8 +4,11 @@ class CDIStubCommand extends CDIAbstractDataTypeCommand {
   
   private $object;
   
-  public function __construct() {
+  private $initialValues = array();
+  
+  public function __construct($defaults = array()) {
     parent::__construct(array('CDIStubInterface'));
+    $this->initialValues = $defaults;
   }
   
   public function toString() {
@@ -13,7 +16,7 @@ class CDIStubCommand extends CDIAbstractDataTypeCommand {
   }
   
   public function executeAction(CDIReceiverInterface $receiver) {
-    $this->object = $receiver->stub();
+    $this->object = $receiver->stub($this->initialValues);
   }
   
   public function getDataObject() {
