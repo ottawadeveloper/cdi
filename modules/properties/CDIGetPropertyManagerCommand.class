@@ -16,7 +16,7 @@ class CDIGetPropertyManagerCommand extends CDIAbstractDataTypeCommand {
   }
   
   public function executeAction(CDIReceiverInterface $receiver) {
-    $this->manager = $receiver->getPropertyManager($propertyKey);
+    $this->manager = $receiver->getPropertyManager($this->propertyKey);
   }
   
   public function getManager() {

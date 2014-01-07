@@ -1,15 +1,20 @@
 <?php
 
-define('CDI_DISPLAY_HTML', 'html');
+define('CDI_DISPLAY_TYPE_HTML', 'html');
+
+define('CDI_DISPLAY_MODE_FULL', 'full');
+define('CDI_DISPLAY_MODE_SUMMARY', 'summary');
 
 class CDIDisplayCommand extends CDIAbstractDataObjectCommand {
   
   private $display = '';
-  private $mode = CDI_DISPLAY_HTML;
+  private $mode = CDI_DISPLAY_MODE_FULL;
+  private $type = CID_DISPLAY_TYPE_HTML;
   
-  public function __construct($displayMode = CDI_DISPLAY_HTML) {
+  public function __construct($displayType = CDI_DISPLAY_TYPE_HTML, $displayMode = CDI_DISPLAY_MODE_FULL) {
     parent::__construct(array('CDIDisplayInterface'));
     $this->mode = $displayMode;
+    $this->type = $displayType;
   }
   
   public function validReceiver(CDIReceiverInterface $receiver) {
@@ -19,7 +24,7 @@ class CDIDisplayCommand extends CDIAbstractDataObjectCommand {
     // We additionally validate the display mode, so that adding new renderers
     // for different display modes is not a problem.
     if ($receiver instanceof CDIDisplayInterface) {
-      return $receiver->supportsDisplayMode($this->mode);
+      return $receiver->supportsDisplayConfiguration($this->type, $this->mode);
     }
     // If we can't validate the display mode, then its not a valid receiver.
     return FALSE;
@@ -30,7 +35,7 @@ class CDIDisplayCommand extends CDIAbstractDataObjectCommand {
   }
   
   public function executeAction(CDIReceiverInterface $receiver) {
-    $this->display = $receiver->display($this->getDataObject(), $this->mode);
+    $this->display = $receiver->display($this->getDataObject(), $this->type, $this->mode);
   }
   
   public function getDisplay() {

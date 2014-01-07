@@ -2,8 +2,8 @@
 
 class CDIDisplayFacade extends CDIAbstractDataObjectFacade {
   
-  public function display($mode = CDI_DISPLAY_HTML) {
-    $command = new CDIDisplayCommand($mode);
+  public function display($type = CDI_DISPLAY_TYPE_HTML, $mode = CDI_DISPLAY_MODE_FULL) {
+    $command = new CDIDisplayCommand($type, $mode);
     $this->fireCommand($command);
     return $command->getDisplay();
   }

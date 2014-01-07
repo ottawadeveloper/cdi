@@ -2,7 +2,7 @@
 
 interface CDIDisplayInterface extends CDITypedReceiverInterface {
   
-  function supportsDisplayMode($mode);
-  function display(CDIDataObjectInterface $interface, $mode);
+  function supportsDisplayConfiguration($type, $mode);
+  function display(CDIDataObjectInterface $interface, $type, $mode);
   
 }
